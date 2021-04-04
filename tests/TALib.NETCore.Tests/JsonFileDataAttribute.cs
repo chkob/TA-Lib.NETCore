@@ -49,7 +49,7 @@ namespace TALib.NETCore.Tests
             using (var fileStream = new FileStream(_filePath, FileMode.Open, FileAccess.Read))
             using (var dataDocument = JsonDocument.Parse(fileStream))
             {
-                if (!String.IsNullOrEmpty(_propertyName))
+                if (!string.IsNullOrEmpty(_propertyName))
                 {
                     if (!dataDocument.RootElement.TryGetProperty(_propertyName.AsSpan(), out var dataProperty) ||
                         dataProperty.ValueKind != JsonValueKind.Array)

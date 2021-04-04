@@ -20,7 +20,7 @@ namespace TALib
             Description = description;
             Group = group;
             Inputs = inputs.Split('|');
-            Options = !String.IsNullOrEmpty(options) ? options.Split('|') : Array.Empty<string>();
+            Options = !string.IsNullOrEmpty(options) ? options.Split('|') : Array.Empty<string>();
             Outputs = outputs.Split('|');
         }
 
@@ -177,8 +177,8 @@ namespace TALib
 
         private string LookbackMethodName => Name + LookbackSuffix;
 
-        private static string NormalizeOutputParameter(string parameter) => OutPrefix + parameter.Replace(" ", String.Empty);
+        private static string NormalizeOutputParameter(string parameter) => OutPrefix + parameter.Replace(" ", string.Empty);
 
-        private static string NormalizeOptionalParameter(string parameter) => OptInPrefix + parameter.Replace(" ", String.Empty);
+        private static string NormalizeOptionalParameter(string parameter) => OptInPrefix + parameter.Replace(" ", string.Empty);
     }
 }

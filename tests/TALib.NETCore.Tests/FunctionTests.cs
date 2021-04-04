@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using Shouldly;
@@ -8,16 +7,14 @@ using Xunit;
 
 namespace TALib.NETCore.Tests
 {
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public class Function_Tests
+    public class FunctionTests
     {
         [SkippableTheory]
         [JsonFileData("DataSets/untest.json", typeof(double), "_")]
         [JsonFileData("DataSets/atoz.json", typeof(double), "_")]
         [JsonFileData("DataSets/extra.json", typeof(double), "_")]
-#pragma warning disable xUnit1026
-        public void Should_Return_CorrectOutput_With_OKStatus_For_DoubleInput(TestDataModel<double> model, string fileName)
-#pragma warning restore xUnit1026
+
+        public void ShouldReturnCorrectOutputWithOkStatusForDoubleInput(TestDataModel<double> model, string fileName)
         {
             Skip.If(model.Skip, "Test has been skipped in configuration");
 
@@ -44,7 +41,7 @@ namespace TALib.NETCore.Tests
 
             for (var i = 0; i < resultOutput.Length; i++)
             {
-                var f = String.Join(", ", resultOutput[0].Select(n => Math.Round(n, 4).ToString(CultureInfo.GetCultureInfo("en-US"))));
+                var f = string.Join(", ", resultOutput[0].Select(n => Math.Round(n, 4).ToString(CultureInfo.GetCultureInfo("en-US"))));
                 resultOutput[i].Length.ShouldBe(model.Outputs[i].Length,
                     $"Expected and calculated length of the output values should be equal for output {i + 1}");
                 resultOutput[i].ShouldBe(model.Outputs[i], equalityTolerance,
@@ -56,10 +53,7 @@ namespace TALib.NETCore.Tests
         [JsonFileData("DataSets/untest.json", typeof(decimal), "_")]
         [JsonFileData("DataSets/atoz.json", typeof(decimal), "_")]
         [JsonFileData("DataSets/extra.json", typeof(decimal), "_")]
-#pragma warning disable xUnit1026
-        public void Should_Return_CorrectOutput_With_OKStatus_For_DecimalInput(TestDataModel<decimal> model, string fileName)
-#pragma warning restore xUnit1026
-
+        public void ShouldReturnCorrectOutputWithOkStatusForDecimalInput(TestDataModel<decimal> model, string fileName)
         {
             Skip.If(model.Skip, "Test has been skipped in configuration");
 

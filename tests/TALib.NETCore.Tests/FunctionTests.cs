@@ -13,7 +13,6 @@ namespace TALib.NETCore.Tests
         [JsonFileData("DataSets/untest.json", typeof(double), "_")]
         [JsonFileData("DataSets/atoz.json", typeof(double), "_")]
         [JsonFileData("DataSets/extra.json", typeof(double), "_")]
-
         public void ShouldReturnCorrectOutputWithOkStatusForDoubleInput(TestDataModel<double> model, string fileName)
         {
             Skip.If(model.Skip, "Test has been skipped in configuration");

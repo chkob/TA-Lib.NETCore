@@ -6,8 +6,8 @@
     <RootNamespace>TALib</RootNamespace>
     <Nullable>enable</Nullable>
     <Product>TALib.NETCore</Product>
-    <Description>A pure port to .NET Core (C#) of Technical Analysis Library</Description>
-    <Authors>Anatoliy Siryi</Authors>
+    <Description>A pure port to .NET Core (C#) of Technical Analysis Library.</Description>
+    <Authors>Anatoliy Siryi; Damian Manelski</Authors>
     <Copyright>TicTacTec LLC</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://ta-lib.org</PackageProjectUrl>

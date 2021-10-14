@@ -9,7 +9,7 @@ TALib.NETCore is an **unofficial** .NET Core port of the Technical Analysis Libr
 
 ## Supported Frameworks
 
-- netstandard2.1
+- netstandard2.0
 
 ## Installation
 

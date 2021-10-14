@@ -46,7 +46,11 @@ namespace TALib
 
             var optInParameters = method.GetParameters().Where(pi => pi.Name.StartsWith(OptInPrefix)).ToList();
             var paramsArray = new object[optInParameters.Count];
-            Array.Fill(paramsArray, Type.Missing);
+
+            for (int i = 0; i < paramsArray.Length; i++)
+            {
+                paramsArray[i] = Type.Missing;
+            }
 
             var defOptInParameters = Options.Select(NormalizeOptionalParameter).ToList();
             for (int i = 0, paramsArrayIndex = 0; i < defOptInParameters.Count; i++)
@@ -99,7 +103,11 @@ namespace TALib
                 outputs.CopyTo(paramsArray, inputs.Length + 2);
             }
 
-            Array.Fill(paramsArray, Type.Missing, inputs.Length + 2 + outputs.Length + 2, optInParameters.Count);
+            for (int i = inputs.Length + 2 + outputs.Length + 2; i <= optInParameters.Count; i++)
+            {
+                paramsArray[i] = Type.Missing;
+            }
+
             if (options.Length == optInParameters.Count)
             {
                 var defOptInParameters = Options.Select(NormalizeOptionalParameter).ToList();

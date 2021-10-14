@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace TALib
 {
@@ -35,7 +36,10 @@ namespace TALib
             }
             else
             {
-                Array.Fill(Globals.UnstablePeriod, unstablePeriod);
+                for (int i = 0; i < Globals.UnstablePeriod.Length; i++)
+                {
+                    Globals.UnstablePeriod[i] = unstablePeriod;
+                }
             }
 
             return RetCode.Success;
@@ -816,8 +820,10 @@ namespace TALib
             {
                 CandleSettings = new CandleSetting[(int) CandleSettingType.AllCandleSettings];
                 UnstablePeriod = new long[(int) FuncUnstId.FuncUnstAll];
-
-                Array.Fill(CandleSettings, new CandleSetting());
+                for (int i = 0; i < CandleSettings.Length; i++)
+                {
+                    CandleSettings[i] = new CandleSetting();
+                }
             }
         }
 

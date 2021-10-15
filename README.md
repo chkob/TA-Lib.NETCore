@@ -5,7 +5,7 @@ TALib.NETCore is an **unofficial** .NET Core port of the Technical Analysis Libr
 [![License](https://img.shields.io/github/license/hmG3/TA-Lib.NETCore?logo=open-source-initiative)](https://opensource.org/licenses/LGPL-3.0)
 [![NuGet](https://img.shields.io/nuget/v/TALib.NETCore.svg?logo=nuget)](https://nuget.org/packages/TALib.NETCore)
 ![Build Status](https://github.com/DamianManelski/TA-Lib.NETCore/workflows/.NET%20Core/badge.svg)
-[![Coverage Status](https://app.codecov.io/gh/DamianManelski/TA-Lib.NetStandard2.0/branch/master/graph/badge.svg)](https://app.codecov.io/gh/DamianManelski)
+[![Coverage Status](https://app.codecov.io/gh/DamianManelski/TA-Lib.NetStandard2.0/branch/master/graph/badge.svg)](https://codecov.io/gh/DamianManelski/TA-Lib.NetStandard2.0)
 
 ## Supported Frameworks
 

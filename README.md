@@ -13,7 +13,7 @@ TALib.NETCore is an **unofficial** .NET Core port of the Technical Analysis Libr
 
 ## Installation
 
-A compiled binary of TALib.NETStandard2.0 is provided by the `TALib.NETCore` NuGet package. To install it, run the following command in the Package Manager Console:
+A compiled binary of TALib.NETStandard2.0 is provided by the `TALib.NetStandard2.0` NuGet package. To install it, run the following command in the Package Manager Console:
 
 ```shell
     Install-Package TALib.NETStandard2.0

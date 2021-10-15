@@ -1,4 +1,4 @@
-# Technical Analysis Library for .NET Core
+# Technical Analysis Library for .NET Standard 2.0
 
 TALib.NETCore is an **unofficial** .NET Core port of the Technical Analysis Library (TA-Lib) - open-source ANSI C library of functions for technical analysis of financial time series data. It is written entirely in C# for the .NET platform. This repository contains the source code of the lastest version of the library released under The 3-Clause BSD License. This makes it free to use, even in commercial projects, with some restrictions.
 
@@ -9,20 +9,20 @@ TALib.NETCore is an **unofficial** .NET Core port of the Technical Analysis Libr
 
 ## Supported Frameworks
 
-- netstandard2.1
+- netstandard2.0
 
 ## Installation
 
-A compiled binary of TALib.NETCore 0.4 is provided by the `TALib.NETCore` NuGet package. To install it, run the following command in the Package Manager Console:
+A compiled binary of TALib.NETStandard2.0 is provided by the `TALib.NetStandard2.0` NuGet package. To install it, run the following command in the Package Manager Console:
 
 ```shell
-    Install-Package TALib.NETCore
+    Install-Package TALib.NETStandard2.0
 ```
 
-or in .NET Core CLI:
+or in .NET CLI:
 
 ```shell
-    dotnet add package TALib.NETCore
+    dotnet add package TALib.NETStandard2.0
 ```
 
 ## Updates and bug fixes

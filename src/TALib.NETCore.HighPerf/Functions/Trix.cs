@@ -5,10 +5,10 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Trix(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 30)
@@ -41,7 +41,7 @@ namespace TALib.NETCore.HighPerf
             int nbElementToOutput = endIdx - startIdx + 1 + lookbackTotal;
             var tempBuffer = BufferHelpers.New(nbElementToOutput);
 
-            double k = 2.0 / (optInTimePeriod + 1);
+            decimal k = 2.0m / (optInTimePeriod + 1);
             RetCode retCode = HighPerf.Lib.INT_EMA(ref inReal, startIdx - lookbackTotal, endIdx, ref tempBuffer, out _, out var nbElement, optInTimePeriod, k);
             if (retCode != RetCode.Success || nbElement == 0)
             {

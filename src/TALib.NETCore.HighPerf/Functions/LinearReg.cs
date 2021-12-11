@@ -5,10 +5,10 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode LinearReg(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 14)
@@ -39,22 +39,22 @@ namespace TALib.NETCore.HighPerf
             int outIdx = default;
             int today = startIdx;
 
-            double sumX = optInTimePeriod * (optInTimePeriod - 1) * 0.5;
-            double sumXSqr = optInTimePeriod * (optInTimePeriod - 1) * (optInTimePeriod * 2 - 1) / 6.0;
-            double divisor = sumX * sumX - optInTimePeriod * sumXSqr;
+            decimal sumX = optInTimePeriod * (optInTimePeriod - 1) * 0.5m;
+            decimal sumXSqr = optInTimePeriod * (optInTimePeriod - 1) * (optInTimePeriod * 2 - 1) / 6.0m;
+            decimal divisor = sumX * sumX - optInTimePeriod * sumXSqr;
             while (today <= endIdx)
             {
-                double sumXY = default;
-                double sumY = default;
+                decimal sumXY = default;
+                decimal sumY = default;
                 for (int i = optInTimePeriod; i-- != 0;)
                 {
-                    double tempValue1 = inReal[today - i];
+                    decimal tempValue1 = inReal[today - i];
                     sumY += tempValue1;
                     sumXY += i * tempValue1;
                 }
 
-                double m = (optInTimePeriod * sumXY - sumX * sumY) / divisor;
-                double b = (sumY - m * sumX) / optInTimePeriod;
+                decimal m = (optInTimePeriod * sumXY - sumX * sumY) / divisor;
+                decimal b = (sumY - m * sumX) / optInTimePeriod;
                 outReal[outIdx++] = b + m * (optInTimePeriod - 1);
                 today++;
             }

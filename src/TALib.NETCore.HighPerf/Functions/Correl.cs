@@ -5,11 +5,11 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Correl(
-            ref Span<double> inReal0,
-            ref Span<double> inReal1,
+            ref Span<decimal> inReal0,
+            ref Span<decimal> inReal1,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 30)
@@ -40,25 +40,25 @@ namespace TALib.NETCore.HighPerf
             outBegIdx = startIdx;
             int trailingIdx = startIdx - lookbackTotal;
 
-            double sumX, sumY, sumX2, sumY2;
-            double sumXY = sumX = sumY = sumX2 = sumY2 = default;
+            decimal sumX, sumY, sumX2, sumY2;
+            decimal sumXY = sumX = sumY = sumX2 = sumY2 = default;
             int today;
             for (today = trailingIdx; today <= startIdx; today++)
             {
-                double x = inReal0[today];
+                decimal x = inReal0[today];
                 sumX += x;
                 sumX2 += x * x;
 
-                double y = inReal1[today];
+                decimal y = inReal1[today];
                 sumXY += x * y;
                 sumY += y;
                 sumY2 += y * y;
             }
 
-            double trailingX = inReal0[trailingIdx];
-            double trailingY = inReal1[trailingIdx++];
-            double tempReal = (sumX2 - sumX * sumX / optInTimePeriod) * (sumY2 - sumY * sumY / optInTimePeriod);
-            outReal[0] = !HighPerf.Lib.IsZeroOrNeg(tempReal) ? (sumXY - sumX * sumY / optInTimePeriod) / Math.Sqrt(tempReal) : 0.0;
+            decimal trailingX = inReal0[trailingIdx];
+            decimal trailingY = inReal1[trailingIdx++];
+            decimal tempReal = (sumX2 - sumX * sumX / optInTimePeriod) * (sumY2 - sumY * sumY / optInTimePeriod);
+            outReal[0] = !HighPerf.Lib.IsZeroOrNeg(tempReal) ? (sumXY - sumX * sumY / optInTimePeriod) / (decimal)Math.Sqrt((double)tempReal) : 0.0m;
 
             int outIdx = 1;
             while (today <= endIdx)
@@ -70,11 +70,11 @@ namespace TALib.NETCore.HighPerf
                 sumY -= trailingY;
                 sumY2 -= trailingY * trailingY;
 
-                double x = inReal0[today];
+                decimal x = inReal0[today];
                 sumX += x;
                 sumX2 += x * x;
 
-                double y = inReal1[today++];
+                decimal y = inReal1[today++];
                 sumXY += x * y;
                 sumY += y;
                 sumY2 += y * y;
@@ -82,7 +82,7 @@ namespace TALib.NETCore.HighPerf
                 trailingX = inReal0[trailingIdx];
                 trailingY = inReal1[trailingIdx++];
                 tempReal = (sumX2 - sumX * sumX / optInTimePeriod) * (sumY2 - sumY * sumY / optInTimePeriod);
-                outReal[outIdx++] = !HighPerf.Lib.IsZeroOrNeg(tempReal) ? (sumXY - sumX * sumY / optInTimePeriod) / Math.Sqrt(tempReal) : 0.0;
+                outReal[outIdx++] = !HighPerf.Lib.IsZeroOrNeg(tempReal) ? (sumXY - sumX * sumY / optInTimePeriod) / (decimal)Math.Sqrt((double)tempReal) : 0.0m;
             }
 
             outNbElement = outIdx;

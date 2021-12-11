@@ -5,11 +5,11 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Obv(
-            ref Span<double> inReal,
-            ref Span<double> inVolume,
+            ref Span<decimal> inReal,
+            ref Span<decimal> inVolume,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement)
         {
@@ -25,13 +25,13 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.BadParam;
             }
 
-            double prevOBV = inVolume[startIdx];
-            double prevReal = inReal[startIdx];
+            decimal prevOBV = inVolume[startIdx];
+            decimal prevReal = inReal[startIdx];
             int outIdx = default;
 
             for (int i = startIdx; i <= endIdx; i++)
             {
-                double tempReal = inReal[i];
+                decimal tempReal = inReal[i];
                 if (tempReal > prevReal)
                 {
                     prevOBV += inVolume[i];

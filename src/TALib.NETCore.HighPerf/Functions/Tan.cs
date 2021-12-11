@@ -5,10 +5,10 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Tan(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement)
         {
@@ -27,7 +27,7 @@ namespace TALib.NETCore.HighPerf
             int outIdx = default;
             for (int i = startIdx; i <= endIdx; i++)
             {
-                outReal[outIdx++] = Math.Tan(inReal[i]);
+                outReal[outIdx++] = (decimal) Math.Tan((double)inReal[i]);
             }
 
             outBegIdx = startIdx;

@@ -5,36 +5,36 @@ namespace TALib.NETCore.HighPerf
 {
     public static partial class Lib
     {
-        private const double Epsilon = 0.00000000000001;
+        private const decimal Epsilon = 0.00000000000001m;
 
-        private static double RealBody(
-            ref Span<double> close,
-            ref Span<double> open,
+        private static decimal RealBody(
+            ref Span<decimal> close,
+            ref Span<decimal> open,
             int idx)
             => Math.Abs(close[idx] - open[idx]);
 
-        private static double UpperShadow(
-            ref Span<double> high,
-            ref Span<double> close,
-            ref Span<double> open, int idx)
+        private static decimal UpperShadow(
+            ref Span<decimal> high,
+            ref Span<decimal> close,
+            ref Span<decimal> open, int idx)
             => high[idx] - (close[idx] >= open[idx] ? close[idx] : open[idx]);
 
-        private static double LowerShadow(
-            ref Span<double> close,
-            ref Span<double> open,
-            ref Span<double> low,
+        private static decimal LowerShadow(
+            ref Span<decimal> close,
+            ref Span<decimal> open,
+            ref Span<decimal> low,
             int idx)
             => (close[idx] >= open[idx] ? open[idx] : close[idx]) - low[idx];
 
-        private static double HighLowRange(
-            ref Span<double> high,
-            ref Span<double> low,
+        private static decimal HighLowRange(
+            ref Span<decimal> high,
+            ref Span<decimal> low,
             int idx)
             => high[idx] - low[idx];
 
         private static bool CandleColor(
-            ref Span<double> close,
-            ref Span<double> open,
+            ref Span<decimal> close,
+            ref Span<decimal> open,
             int idx)
             => close[idx] >= open[idx];
 
@@ -46,15 +46,15 @@ namespace TALib.NETCore.HighPerf
             CandleSettingType set)
             => Globals.CandleSettings[(int) set].AvgPeriod;
 
-        private static double CandleFactor(
+        private static decimal CandleFactor(
             CandleSettingType set)
             => Globals.CandleSettings[(int) set].Factor;
 
-        private static double CandleRange(
-            ref Span<double> open,
-            ref Span<double> high,
-            ref Span<double> low,
-            ref Span<double> close,
+        private static decimal CandleRange(
+            ref Span<decimal> open,
+            ref Span<decimal> high,
+            ref Span<decimal> low,
+            ref Span<decimal> close,
             CandleSettingType set, int idx) =>
             CandleRangeType(set) switch
             {
@@ -64,82 +64,82 @@ namespace TALib.NETCore.HighPerf
                 _ => 0
             };
 
-        private static double CandleAverage(
-            ref Span<double> open,
-            ref Span<double> high,
-            ref Span<double> low,
-            ref Span<double> close,
+        private static decimal CandleAverage(
+            ref Span<decimal> open,
+            ref Span<decimal> high,
+            ref Span<decimal> low,
+            ref Span<decimal> close,
             CandleSettingType set,
-            double sum,
+            decimal sum,
             int idx) =>
             CandleFactor(set) * (CandleAvgPeriod(set) != 0
                 ? sum / CandleAvgPeriod(set)
-                : CandleRange(ref open, ref high, ref low, ref close, set, idx)) / (CandleRangeType(set) == RangeType.Shadows ? 2.0 : 1.0);
+                : CandleRange(ref open, ref high, ref low, ref close, set, idx)) / (CandleRangeType(set) == RangeType.Shadows ? 2.0m : 1.0m);
 
         private static bool RealBodyGapUp(
-            ref Span<double> open,
-            ref Span<double> close,
+            ref Span<decimal> open,
+            ref Span<decimal> close,
             int idx2,
             int idx1) => Math.Min(open[idx2], close[idx2]) > Math.Max(open[idx1], close[idx1]);
 
         private static bool RealBodyGapDown(
-            ref Span<double> open,
-            ref Span<double> close,
+            ref Span<decimal> open,
+            ref Span<decimal> close,
             int idx2,
             int idx1) => Math.Max(open[idx2], close[idx2]) < Math.Min(open[idx1], close[idx1]);
 
         private static bool CandleGapUp(
-            ref Span<double> low,
-            ref Span<double> high,
+            ref Span<decimal> low,
+            ref Span<decimal> high,
             int idx2,
             int idx1) => low[idx2] > high[idx1];
 
         private static bool CandleGapDown(
-            ref Span<double> low,
-            ref Span<double> high,
+            ref Span<decimal> low,
+            ref Span<decimal> high,
             int idx2,
             int idx1) => high[idx2] < low[idx1];
 
         private static bool IsZero(
-            double v) => -Epsilon < v && v < Epsilon;
+            decimal v) => -Epsilon < v && v < Epsilon;
         
         private static bool IsZeroOrNeg(
-            double v) => v < Epsilon;
+            decimal v) => v < Epsilon;
         
         private static void TrueRange(
-            double th,
-            double tl,
-            double yc,
-            out double @out)
+            decimal th,
+            decimal tl,
+            decimal yc,
+            out decimal @out)
         {
             @out = th - tl;
-            double tempDouble = Math.Abs(th - yc);
-            if (tempDouble > @out)
+            decimal tempdecimal = Math.Abs(th - yc);
+            if (tempdecimal > @out)
             {
-                @out = tempDouble;
+                @out = tempdecimal;
             }
 
-            tempDouble = Math.Abs(tl - yc);
-            if (tempDouble > @out)
+            tempdecimal = Math.Abs(tl - yc);
+            if (tempdecimal > @out)
             {
-                @out = tempDouble;
+                @out = tempdecimal;
             }
         }
 
         private static void DoPriceWma(
-            ref Span<double> real,
+            ref Span<decimal> real,
             ref int idx,
-            ref double periodWMASub,
-            ref double periodWMASum,
-            ref double trailingWMAValue,
-            double varNewPrice,
-            out double varToStoreSmoothedValue)
+            ref decimal periodWMASub,
+            ref decimal periodWMASum,
+            ref decimal trailingWMAValue,
+            decimal varNewPrice,
+            out decimal varToStoreSmoothedValue)
         {
             periodWMASub += varNewPrice;
             periodWMASub -= trailingWMAValue;
-            periodWMASum += varNewPrice * 4.0;
+            periodWMASum += varNewPrice * 4.0m;
             trailingWMAValue = real[idx++];
-            varToStoreSmoothedValue = periodWMASum * 0.1;
+            varToStoreSmoothedValue = periodWMASum * 0.1m;
             periodWMASum -= periodWMASub;
         }
 
@@ -166,20 +166,20 @@ namespace TALib.NETCore.HighPerf
         }
 
         private static void DoHilbertTransform(
-            IDictionary<string, double> variables,
+            IDictionary<string, decimal> variables,
             string varName,
-            double input,
+            decimal input,
             string oddOrEvenId,
             int hilbertIdx,
-            double adjustedPrevPeriod)
+            decimal adjustedPrevPeriod)
         {
-            const double a = 0.0962;
-            const double b = 0.5769;
+            const decimal a = 0.0962m;
+            const decimal b = 0.5769m;
 
-            var hilbertTempDouble = a * input;
+            var hilbertTempdecimal = a * input;
             variables[varName] = -variables[$"{varName}{oddOrEvenId}{hilbertIdx}"];
-            variables[$"{varName}{oddOrEvenId}{hilbertIdx}"] = hilbertTempDouble;
-            variables[varName] += hilbertTempDouble;
+            variables[$"{varName}{oddOrEvenId}{hilbertIdx}"] = hilbertTempdecimal;
+            variables[varName] += hilbertTempdecimal;
             variables[varName] -= variables[$"prev{varName}{oddOrEvenId}"];
             variables[$"prev{varName}{oddOrEvenId}"] = b * variables[$"prev{varName}Input{oddOrEvenId}"];
             variables[varName] += variables[$"prev{varName}{oddOrEvenId}"];
@@ -188,28 +188,28 @@ namespace TALib.NETCore.HighPerf
         }
 
         private static void DoHilbertOdd(
-            IDictionary<string, double> variables,
+            IDictionary<string, decimal> variables,
             string varName,
-            double input,
+            decimal input,
             int hilbertIdx,
-            double adjustedPrevPeriod) =>
+            decimal adjustedPrevPeriod) =>
             DoHilbertTransform(variables, varName, input, "Odd", hilbertIdx, adjustedPrevPeriod);
 
         private static void DoHilbertEven(
-            IDictionary<string, double> variables,
+            IDictionary<string, decimal> variables,
             string varName,
-            double input,
+            decimal input,
             int hilbertIdx,
-            double adjustedPrevPeriod) =>
+            decimal adjustedPrevPeriod) =>
             DoHilbertTransform(variables, varName, input, "Even", hilbertIdx, adjustedPrevPeriod);
 
         private static void CalcTerms(
-            ref Span<double> inLow,
-            ref Span<double> inHigh,
-            ref Span<double> inClose,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inClose,
             int day,
-            out double trueRange,
-            out double closeMinusTrueLow)
+            out decimal trueRange,
+            out decimal closeMinusTrueLow)
         {
             var tempLT = inLow[day];
             var tempHT = inHigh[day];
@@ -217,16 +217,16 @@ namespace TALib.NETCore.HighPerf
             var trueLow = Math.Min(tempLT, tempCY);
             closeMinusTrueLow = inClose[day] - trueLow;
             trueRange = tempHT - tempLT;
-            var tempDouble = Math.Abs(tempCY - tempHT);
-            if (tempDouble > trueRange)
+            var tempdecimal = Math.Abs(tempCY - tempHT);
+            if (tempdecimal > trueRange)
             {
-                trueRange = tempDouble;
+                trueRange = tempdecimal;
             }
 
-            tempDouble = Math.Abs(tempCY - tempLT);
-            if (tempDouble > trueRange)
+            tempdecimal = Math.Abs(tempCY - tempLT);
+            if (tempdecimal > trueRange)
             {
-                trueRange = tempDouble;
+                trueRange = tempdecimal;
             }
         }
     }

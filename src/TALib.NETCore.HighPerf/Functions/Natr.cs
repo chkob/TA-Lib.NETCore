@@ -5,12 +5,12 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Natr(
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx, out int outNbElement, int optInTimePeriod = 14)
         {
             outBegIdx = outNbElement = 0;
@@ -55,7 +55,7 @@ namespace TALib.NETCore.HighPerf
                 return retCode;
             }
 
-            double prevATR = prevATRTemp[0];
+            decimal prevATR = prevATRTemp[0];
             int today = optInTimePeriod;
             int outIdx = (int) HighPerf.Lib.Globals.UnstablePeriod[(int) FuncUnstId.Natr];
             while (outIdx != 0)
@@ -67,8 +67,8 @@ namespace TALib.NETCore.HighPerf
             }
 
             outIdx = 1;
-            double tempValue = inClose[today];
-            outReal[0] = !HighPerf.Lib.IsZero(tempValue) ? prevATR / tempValue * 100.0 : 0.0;
+            decimal tempValue = inClose[today];
+            outReal[0] = !HighPerf.Lib.IsZero(tempValue) ? prevATR / tempValue * 100.0m : 0.0m;
 
             int nbATR = endIdx - startIdx + 1;
             while (--nbATR != 0)
@@ -79,11 +79,11 @@ namespace TALib.NETCore.HighPerf
                 tempValue = inClose[today];
                 if (!HighPerf.Lib.IsZero(tempValue))
                 {
-                    outReal[outIdx] = prevATR / tempValue * 100.0;
+                    outReal[outIdx] = prevATR / tempValue * 100.0m;
                 }
                 else
                 {
-                    outReal[0] = 0.0;
+                    outReal[0] = 0.0m;
                 }
 
                 outIdx++;

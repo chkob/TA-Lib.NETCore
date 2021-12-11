@@ -5,12 +5,12 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode WillR(
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 14)
@@ -43,12 +43,12 @@ namespace TALib.NETCore.HighPerf
             int trailingIdx = startIdx - lookbackTotal;
             int highestIdx = -1;
             int lowestIdx = highestIdx;
-            double highest, lowest;
-            double diff = highest = lowest = default;
+            decimal highest, lowest;
+            decimal diff = highest = lowest = default;
 
             while (today <= endIdx)
             {
-                double tmp = inLow[today];
+                decimal tmp = inLow[today];
                 if (lowestIdx < trailingIdx)
                 {
                     lowestIdx = trailingIdx;
@@ -64,13 +64,13 @@ namespace TALib.NETCore.HighPerf
                         }
                     }
 
-                    diff = (highest - lowest) / -100.0;
+                    diff = (highest - lowest) / -100.0m;
                 }
                 else if (tmp <= lowest)
                 {
                     lowestIdx = today;
                     lowest = tmp;
-                    diff = (highest - lowest) / -100.0;
+                    diff = (highest - lowest) / -100.0m;
                 }
 
                 tmp = inHigh[today];
@@ -89,16 +89,16 @@ namespace TALib.NETCore.HighPerf
                         }
                     }
 
-                    diff = (highest - lowest) / -100.0;
+                    diff = (highest - lowest) / -100.0m;
                 }
                 else if (tmp >= highest)
                 {
                     highestIdx = today;
                     highest = tmp;
-                    diff = (highest - lowest) / -100.0;
+                    diff = (highest - lowest) / -100.0m;
                 }
 
-                outReal[outIdx++] = !diff.Equals(0.0) ? (highest - inClose[today]) / diff : 0.0;
+                outReal[outIdx++] = !diff.Equals(0.0) ? (highest - inClose[today]) / diff : 0.0m;
 
                 trailingIdx++;
                 today++;

@@ -5,16 +5,16 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode MorningDojiStar(
-            ref Span<double> inOpen,
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inOpen,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
             int[] outInteger,
             out int outBegIdx,
             out int outNbElement,
-            double optInPenetration = 0.3)
+            decimal optInPenetration = 0.3m)
         {
             outBegIdx = outNbElement = 0;
 
@@ -23,7 +23,7 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.OutOfRangeStartIndex;
             }
 
-            if (inOpen == null || inHigh == null || inLow == null || inClose == null || outInteger == null || optInPenetration < 0.0)
+            if (inOpen == null || inHigh == null || inLow == null || inClose == null || outInteger == null || optInPenetration < 0.0m)
             {
                 return RetCode.BadParam;
             }
@@ -39,9 +39,9 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.Success;
             }
 
-            double bodyLongPeriodTotal = default;
-            double bodyDojiPeriodTotal = default;
-            double bodyShortPeriodTotal = default;
+            decimal bodyLongPeriodTotal = default;
+            decimal bodyDojiPeriodTotal = default;
+            decimal bodyShortPeriodTotal = default;
             int bodyLongTrailingIdx = startIdx - 2 - CandleAvgPeriod(CandleSettingType.BodyLong);
             int bodyDojiTrailingIdx = startIdx - 1 - CandleAvgPeriod(CandleSettingType.BodyDoji);
             int bodyShortTrailingIdx = startIdx - CandleAvgPeriod(CandleSettingType.BodyShort);

@@ -9,13 +9,13 @@ namespace TALib.NETCore.HighPerf.Tests
 {
     public static class TestExtensions
     {
-        private const double EqualityTolerance = 0.001d;
+        private const decimal EqualityTolerance = 0.001m;
 
         public static void FillTestData(
             this FunctionNames functionName,
             string testDataSetName,
-            ref Span<double> inputs,
-            ref Span<double> expectedOutputs,
+            ref Span<decimal> inputs,
+            ref Span<decimal> expectedOutputs,
             out int inputSize,
             out List<object> parameters)
         {
@@ -26,10 +26,10 @@ namespace TALib.NETCore.HighPerf.Tests
             {
                 throw new ApplicationException($"No test data found for function {functionName}.");
             }
-            var inputValues = functionElement.GetProperty("inputs").EnumerateArray().SelectMany(p => p.EnumerateArray()).Select(p => p.GetDouble()).ToArray();
+            var inputValues = functionElement.GetProperty("inputs").EnumerateArray().SelectMany(p => p.EnumerateArray()).Select(p => (decimal)p.GetDouble()).ToArray();
             inputSize = inputValues.Length / functionElement.GetProperty("inputs").EnumerateArray().Count();
 
-            var expectedOutputValues = functionElement.GetProperty("outputs").EnumerateArray().SelectMany(p => p.EnumerateArray()).Select(p => p.GetDouble()).ToArray();
+            var expectedOutputValues = functionElement.GetProperty("outputs").EnumerateArray().SelectMany(p => p.EnumerateArray()).Select(p => (decimal)p.GetDouble()).ToArray();
             inputValues.CopyTo(inputs);
             expectedOutputValues.CopyTo(expectedOutputs);
             expectedOutputs = expectedOutputs.Slice(0, expectedOutputValues.Length);
@@ -52,7 +52,7 @@ namespace TALib.NETCore.HighPerf.Tests
             inputs = inputs.Slice(0, inputValues.Length);
         }
 
-        public static void ShouldMatch(this Span<double> data, ref Span<double> matches)
+        public static void ShouldMatch(this Span<decimal> data, ref Span<decimal> matches)
         {
             if (data.Length != matches.Length)
             {

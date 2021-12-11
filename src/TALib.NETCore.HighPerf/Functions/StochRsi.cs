@@ -5,11 +5,11 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode StochRsi(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
-            ref Span<double> outFastK,
-            ref Span<double> outFastD,
+            ref Span<decimal> outFastK,
+            ref Span<decimal> outFastD,
             out int outBegIdx,
             out int outNbElement,
             MAType optInFastDMAType = MAType.Sma,

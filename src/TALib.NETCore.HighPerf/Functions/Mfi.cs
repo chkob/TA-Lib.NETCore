@@ -5,13 +5,13 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Mfi(
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
-            ref Span<double> inVolume,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
+            ref Span<decimal> inVolume,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 14)
@@ -42,39 +42,39 @@ namespace TALib.NETCore.HighPerf
 
             int outIdx = default;
 
-            var moneyFlow = new (double negative, double positive)[optInTimePeriod];
+            var moneyFlow = new (decimal negative, decimal positive)[optInTimePeriod];
 
             int mflowIdx = default;
             var maxIdxMflow = optInTimePeriod - 1;
 
             int today = startIdx - lookbackTotal;
-            double prevValue = (inHigh[today] + inLow[today] + inClose[today]) / 3.0;
+            decimal prevValue = (inHigh[today] + inLow[today] + inClose[today]) / 3.0m;
 
-            double posSumMF = default;
-            double negSumMF = default;
+            decimal posSumMF = default;
+            decimal negSumMF = default;
             today++;
             for (int i = optInTimePeriod; i > 0; i--)
             {
-                double tempValue1 = (inHigh[today] + inLow[today] + inClose[today]) / 3.0;
-                double tempValue2 = tempValue1 - prevValue;
+                decimal tempValue1 = (inHigh[today] + inLow[today] + inClose[today]) / 3.0m;
+                decimal tempValue2 = tempValue1 - prevValue;
                 prevValue = tempValue1;
                 tempValue1 *= inVolume[today++];
-                if (tempValue2 < 0.0)
+                if (tempValue2 < 0.0m)
                 {
                     moneyFlow[mflowIdx].negative = tempValue1;
                     negSumMF += tempValue1;
-                    moneyFlow[mflowIdx].positive = 0.0;
+                    moneyFlow[mflowIdx].positive = 0.0m;
                 }
-                else if (tempValue2 > 0.0)
+                else if (tempValue2 > 0.0m)
                 {
                     moneyFlow[mflowIdx].positive = tempValue1;
                     posSumMF += tempValue1;
-                    moneyFlow[mflowIdx].negative = 0.0;
+                    moneyFlow[mflowIdx].negative = 0.0m;
                 }
                 else
                 {
-                    moneyFlow[mflowIdx].positive = 0.0;
-                    moneyFlow[mflowIdx].negative = 0.0;
+                    moneyFlow[mflowIdx].positive = 0.0m;
+                    moneyFlow[mflowIdx].negative = 0.0m;
                 }
 
                 if (++mflowIdx > maxIdxMflow)
@@ -85,8 +85,8 @@ namespace TALib.NETCore.HighPerf
 
             if (today > startIdx)
             {
-                double tempValue1 = posSumMF + negSumMF;
-                outReal[outIdx++] = tempValue1 >= 1.0 ? 100.0 * (posSumMF / tempValue1) : 0.0;
+                decimal tempValue1 = posSumMF + negSumMF;
+                outReal[outIdx++] = tempValue1 >= 1.0m ? 100.0m * (posSumMF / tempValue1) : 0.0m;
             }
             else
             {
@@ -95,26 +95,26 @@ namespace TALib.NETCore.HighPerf
                     posSumMF -= moneyFlow[mflowIdx].positive;
                     negSumMF -= moneyFlow[mflowIdx].negative;
 
-                    double tempValue1 = (inHigh[today] + inLow[today] + inClose[today]) / 3.0;
-                    double tempValue2 = tempValue1 - prevValue;
+                    decimal tempValue1 = (inHigh[today] + inLow[today] + inClose[today]) / 3.0m;
+                    decimal tempValue2 = tempValue1 - prevValue;
                     prevValue = tempValue1;
                     tempValue1 *= inVolume[today++];
-                    if (tempValue2 < 0.0)
+                    if (tempValue2 < 0.0m)
                     {
                         moneyFlow[mflowIdx].negative = tempValue1;
                         negSumMF += tempValue1;
-                        moneyFlow[mflowIdx].positive = 0.0;
+                        moneyFlow[mflowIdx].positive = 0.0m;
                     }
-                    else if (tempValue2 > 0.0)
+                    else if (tempValue2 > 0.0m)
                     {
                         moneyFlow[mflowIdx].positive = tempValue1;
                         posSumMF += tempValue1;
-                        moneyFlow[mflowIdx].negative = 0.0;
+                        moneyFlow[mflowIdx].negative = 0.0m;
                     }
                     else
                     {
-                        moneyFlow[mflowIdx].positive = 0.0;
-                        moneyFlow[mflowIdx].negative = 0.0;
+                        moneyFlow[mflowIdx].positive = 0.0m;
+                        moneyFlow[mflowIdx].negative = 0.0m;
                     }
 
                     if (++mflowIdx > maxIdxMflow)
@@ -129,30 +129,30 @@ namespace TALib.NETCore.HighPerf
                 posSumMF -= moneyFlow[mflowIdx].positive;
                 negSumMF -= moneyFlow[mflowIdx].negative;
 
-                double tempValue1 = (inHigh[today] + inLow[today] + inClose[today]) / 3.0;
-                double tempValue2 = tempValue1 - prevValue;
+                decimal tempValue1 = (inHigh[today] + inLow[today] + inClose[today]) / 3.0m;
+                decimal tempValue2 = tempValue1 - prevValue;
                 prevValue = tempValue1;
                 tempValue1 *= inVolume[today++];
-                if (tempValue2 < 0.0)
+                if (tempValue2 < 0.0m)
                 {
                     moneyFlow[mflowIdx].negative = tempValue1;
                     negSumMF += tempValue1;
-                    moneyFlow[mflowIdx].positive = 0.0;
+                    moneyFlow[mflowIdx].positive = 0.0m;
                 }
-                else if (tempValue2 > 0.0)
+                else if (tempValue2 > 0.0m)
                 {
                     moneyFlow[mflowIdx].positive = tempValue1;
                     posSumMF += tempValue1;
-                    moneyFlow[mflowIdx].negative = 0.0;
+                    moneyFlow[mflowIdx].negative = 0.0m;
                 }
                 else
                 {
-                    moneyFlow[mflowIdx].positive = 0.0;
-                    moneyFlow[mflowIdx].negative = 0.0;
+                    moneyFlow[mflowIdx].positive = 0.0m;
+                    moneyFlow[mflowIdx].negative = 0.0m;
                 }
 
                 tempValue1 = posSumMF + negSumMF;
-                outReal[outIdx++] = tempValue1 >= 1.0 ? 100.0 * (posSumMF / tempValue1) : 0.0;
+                outReal[outIdx++] = tempValue1 >= 1.0m ? 100.0m * (posSumMF / tempValue1) : 0.0m;
 
                 if (++mflowIdx > maxIdxMflow)
                 {

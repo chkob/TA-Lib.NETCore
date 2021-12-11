@@ -9,13 +9,13 @@ namespace TALib.NETCore.HighPerf.Tests
 {
     public class FunctionTests
     {
-        private const double EqualityTolerance = 0.001d;
+        private const decimal EqualityTolerance = 0.001m;
 
         [SkippableTheory]
         [JsonFileData("DataSets/untest.json", "_")]
         [JsonFileData("DataSets/atoz.json", "_")]
         [JsonFileData("DataSets/extra.json", "_")]
-        public void ShouldReturnCorrectOutputWithOkStatusForDoubleInput(TestDataModel model, string fileName)
+        public void ShouldReturnCorrectOutputWithOkStatusFordecimalInput(TestDataModel model, string fileName)
         {
             Skip.If(model.Skip, "Test has been skipped in configuration");
 
@@ -28,11 +28,11 @@ namespace TALib.NETCore.HighPerf.Tests
             var outputLength = model.Inputs[0].Length - inputOffset;
             outputLength.ShouldBePositive("Output array should have the correct length");
 
-            var resultOutput = new double[model.Outputs.Length][];
+            var resultOutput = new decimal[model.Outputs.Length][];
             resultOutput.Length.ShouldBe(function.Outputs.Length, "Number of outputs must match the definition");
             for (var i = 0; i < resultOutput.Length; i++)
             {
-                resultOutput[i] = new double[outputLength];
+                resultOutput[i] = new decimal[outputLength];
             }
 
             var returnCode = function.Run(model.Inputs, model.Options, resultOutput);

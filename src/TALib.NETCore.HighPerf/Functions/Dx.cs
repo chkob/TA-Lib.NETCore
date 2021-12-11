@@ -5,12 +5,12 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Dx(
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 14)
@@ -39,30 +39,30 @@ namespace TALib.NETCore.HighPerf
             }
 
             outBegIdx = startIdx;
-            double prevMinusDM = default;
-            double prevPlusDM = default;
-            double prevTR = default;
+            decimal prevMinusDM = default;
+            decimal prevPlusDM = default;
+            decimal prevTR = default;
             int today = startIdx - lookbackTotal;
-            double prevHigh = inHigh[today];
-            double prevLow = inLow[today];
-            double prevClose = inClose[today];
+            decimal prevHigh = inHigh[today];
+            decimal prevLow = inLow[today];
+            decimal prevClose = inClose[today];
             int i = optInTimePeriod - 1;
             while (i-- > 0)
             {
                 today++;
-                double tempReal = inHigh[today];
-                double diffP = tempReal - prevHigh;
+                decimal tempReal = inHigh[today];
+                decimal diffP = tempReal - prevHigh;
                 prevHigh = tempReal;
 
                 tempReal = inLow[today];
-                double diffM = prevLow - tempReal;
+                decimal diffM = prevLow - tempReal;
                 prevLow = tempReal;
 
-                if (diffM > 0.0 && diffP < diffM)
+                if (diffM > 0.0m && diffP < diffM)
                 {
                     prevMinusDM += diffM;
                 }
-                else if (diffP > 0.0 && diffP > diffM)
+                else if (diffP > 0.0m && diffP > diffM)
                 {
                     prevPlusDM += diffP;
                 }
@@ -76,22 +76,22 @@ namespace TALib.NETCore.HighPerf
             while (i-- != 0)
             {
                 today++;
-                double tempReal = inHigh[today];
-                double diffP = tempReal - prevHigh;
+                decimal tempReal = inHigh[today];
+                decimal diffP = tempReal - prevHigh;
                 prevHigh = tempReal;
 
                 tempReal = inLow[today];
-                double diffM = prevLow - tempReal;
+                decimal diffM = prevLow - tempReal;
                 prevLow = tempReal;
 
                 prevMinusDM -= prevMinusDM / optInTimePeriod;
                 prevPlusDM -= prevPlusDM / optInTimePeriod;
 
-                if (diffM > 0.0 && diffP < diffM)
+                if (diffM > 0.0m && diffP < diffM)
                 {
                     prevMinusDM += diffM;
                 }
-                else if (diffP > 0.0 && diffP > diffM)
+                else if (diffP > 0.0m && diffP > diffM)
                 {
                     prevPlusDM += diffP;
                 }
@@ -103,36 +103,36 @@ namespace TALib.NETCore.HighPerf
 
             if (!HighPerf.Lib.IsZero(prevTR))
             {
-                double minusDI = 100.0 * (prevMinusDM / prevTR);
-                double plusDI = 100.0 * (prevPlusDM / prevTR);
-                double tempReal = minusDI + plusDI;
-                outReal[0] = !HighPerf.Lib.IsZero(tempReal) ? 100.0 * (Math.Abs(minusDI - plusDI) / tempReal) : 0.0;
+                decimal minusDI = 100.0m * (prevMinusDM / prevTR);
+                decimal plusDI = 100.0m * (prevPlusDM / prevTR);
+                decimal tempReal = minusDI + plusDI;
+                outReal[0] = !HighPerf.Lib.IsZero(tempReal) ? 100.0m * (Math.Abs(minusDI - plusDI) / tempReal) : 0.0m;
             }
             else
             {
-                outReal[0] = 0.0;
+                outReal[0] = 0.0m;
             }
 
             var outIdx = 1;
             while (today < endIdx)
             {
                 today++;
-                double tempReal = inHigh[today];
-                double diffP = tempReal - prevHigh;
+                decimal tempReal = inHigh[today];
+                decimal diffP = tempReal - prevHigh;
                 prevHigh = tempReal;
 
                 tempReal = inLow[today];
-                double diffM = prevLow - tempReal;
+                decimal diffM = prevLow - tempReal;
                 prevLow = tempReal;
 
                 prevMinusDM -= prevMinusDM / optInTimePeriod;
                 prevPlusDM -= prevPlusDM / optInTimePeriod;
 
-                if (diffM > 0.0 && diffP < diffM)
+                if (diffM > 0.0m && diffP < diffM)
                 {
                     prevMinusDM += diffM;
                 }
-                else if (diffP > 0.0 && diffP > diffM)
+                else if (diffP > 0.0m && diffP > diffM)
                 {
                     prevPlusDM += diffP;
                 }
@@ -143,12 +143,12 @@ namespace TALib.NETCore.HighPerf
 
                 if (!HighPerf.Lib.IsZero(prevTR))
                 {
-                    double minusDI = 100.0 * (prevMinusDM / prevTR);
-                    double plusDI = 100.0 * (prevPlusDM / prevTR);
+                    decimal minusDI = 100.0m * (prevMinusDM / prevTR);
+                    decimal plusDI = 100.0m * (prevPlusDM / prevTR);
                     tempReal = minusDI + plusDI;
                     if (!HighPerf.Lib.IsZero(tempReal))
                     {
-                        outReal[outIdx] = 100.0 * (Math.Abs(minusDI - plusDI) / tempReal);
+                        outReal[outIdx] = 100.0m * (Math.Abs(minusDI - plusDI) / tempReal);
                     }
                     else
                     {

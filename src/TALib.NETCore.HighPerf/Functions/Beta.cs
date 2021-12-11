@@ -5,11 +5,11 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Beta(
-            ref Span<double> inReal0,
-            ref Span<double> inReal1,
+            ref Span<decimal> inReal0,
+            ref Span<decimal> inReal1,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 5)
@@ -37,8 +37,8 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.Success;
             }
 
-            double x, y, tmpReal, sxy, sx, sy;
-            double sxx = sxy = sx = sy = default;
+            decimal x, y, tmpReal, sxy, sx, sy;
+            decimal sxx = sxy = sx = sy = default;
             int trailingIdx = startIdx - lookbackTotal;
             var trailingLastPriceX = inReal0[trailingIdx];
             var lastPriceX = trailingLastPriceX;
@@ -49,11 +49,11 @@ namespace TALib.NETCore.HighPerf
             while (i < startIdx)
             {
                 tmpReal = inReal0[i];
-                x = !HighPerf.Lib.IsZero(lastPriceX) ? (tmpReal - lastPriceX) / lastPriceX : 0.0;
+                x = !HighPerf.Lib.IsZero(lastPriceX) ? (tmpReal - lastPriceX) / lastPriceX : 0.0m;
                 lastPriceX = tmpReal;
 
                 tmpReal = inReal1[i++];
-                y = !HighPerf.Lib.IsZero(lastPriceY) ? (tmpReal - lastPriceY) / lastPriceY : 0.0;
+                y = !HighPerf.Lib.IsZero(lastPriceY) ? (tmpReal - lastPriceY) / lastPriceY : 0.0m;
                 lastPriceY = tmpReal;
 
                 sxx += x * x;
@@ -66,11 +66,11 @@ namespace TALib.NETCore.HighPerf
             do
             {
                 tmpReal = inReal0[i];
-                x = !HighPerf.Lib.IsZero(lastPriceX) ? (tmpReal - lastPriceX) / lastPriceX : 0.0;
+                x = !HighPerf.Lib.IsZero(lastPriceX) ? (tmpReal - lastPriceX) / lastPriceX : 0.0m;
                 lastPriceX = tmpReal;
 
                 tmpReal = inReal1[i++];
-                y = !HighPerf.Lib.IsZero(lastPriceY) ? (tmpReal - lastPriceY) / lastPriceY : 0.0;
+                y = !HighPerf.Lib.IsZero(lastPriceY) ? (tmpReal - lastPriceY) / lastPriceY : 0.0m;
                 lastPriceY = tmpReal;
 
                 sxx += x * x;
@@ -79,15 +79,15 @@ namespace TALib.NETCore.HighPerf
                 sy += y;
 
                 tmpReal = inReal0[trailingIdx];
-                x = !HighPerf.Lib.IsZero(trailingLastPriceX) ? (tmpReal - trailingLastPriceX) / trailingLastPriceX : 0.0;
+                x = !HighPerf.Lib.IsZero(trailingLastPriceX) ? (tmpReal - trailingLastPriceX) / trailingLastPriceX : 0.0m;
                 trailingLastPriceX = tmpReal;
 
                 tmpReal = inReal1[trailingIdx++];
-                y = !HighPerf.Lib.IsZero(trailingLastPriceY) ? (tmpReal - trailingLastPriceY) / trailingLastPriceY : 0.0;
+                y = !HighPerf.Lib.IsZero(trailingLastPriceY) ? (tmpReal - trailingLastPriceY) / trailingLastPriceY : 0.0m;
                 trailingLastPriceY = tmpReal;
 
                 tmpReal = optInTimePeriod * sxx - sx * sx;
-                outReal[outIdx++] = !HighPerf.Lib.IsZero(tmpReal) ? (optInTimePeriod * sxy - sx * sy) / tmpReal : 0.0;
+                outReal[outIdx++] = !HighPerf.Lib.IsZero(tmpReal) ? (optInTimePeriod * sxy - sx * sy) / tmpReal : 0.0m;
 
                 sxx -= x * x;
                 sxy -= x * y;

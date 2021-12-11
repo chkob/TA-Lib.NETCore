@@ -5,11 +5,11 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Mult(
-            ref Span<double> inReal0,
-            ref Span<double> inReal1,
+            ref Span<decimal> inReal0,
+            ref Span<decimal> inReal1,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement)
         {

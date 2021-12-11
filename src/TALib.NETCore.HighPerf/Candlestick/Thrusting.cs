@@ -5,10 +5,10 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Thrusting(
-            ref Span<double> inOpen,
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inOpen,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
             int[] outInteger,
@@ -38,9 +38,9 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.Success;
             }
 
-            double equalPeriodTotal = default;
+            decimal equalPeriodTotal = default;
             int equalTrailingIdx = startIdx - CandleAvgPeriod(CandleSettingType.Equal);
-            double bodyLongPeriodTotal = default;
+            decimal bodyLongPeriodTotal = default;
             int bodyLongTrailingIdx = startIdx - CandleAvgPeriod(CandleSettingType.BodyLong);
             int i = equalTrailingIdx;
             while (i < startIdx)
@@ -68,7 +68,7 @@ namespace TALib.NETCore.HighPerf
                     inClose[i] > inClose[i - 1] +
                     CandleAverage(ref inOpen, ref inHigh, ref inLow, ref inClose, CandleSettingType.Equal, equalPeriodTotal,
                         i - 1) && //  close into prior body
-                    inClose[i] <= inClose[i - 1] + RealBody(ref inClose, ref inOpen, i - 1) * 0.5) //   under the midpoint
+                    inClose[i] <= inClose[i - 1] + RealBody(ref inClose, ref inOpen, i - 1) * 0.5m) //   under the midpoint
                 {
                     outInteger[outIdx++] = -100;
                 }

@@ -5,10 +5,10 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Piercing(
-            ref Span<double> inOpen,
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inOpen,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
             int[] outInteger,
@@ -60,7 +60,7 @@ namespace TALib.NETCore.HighPerf
                         bodyLongPeriodTotal[0], i) && //      long
                     inOpen[i] < inLow[i - 1] && //      open below prior low
                     inClose[i] < inOpen[i - 1] && //      close within prior body
-                    inClose[i] > inClose[i - 1] + RealBody(ref inClose, ref inOpen, i - 1) * 0.5 //        above midpoint
+                    inClose[i] > inClose[i - 1] + RealBody(ref inClose, ref inOpen, i - 1) * 0.5m //        above midpoint
                 )
                 {
                     outInteger[outIdx++] = 100;

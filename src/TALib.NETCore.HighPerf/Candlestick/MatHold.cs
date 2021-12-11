@@ -5,16 +5,16 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode MatHold(
-            ref Span<double> inOpen,
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inOpen,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
             int[] outInteger,
             out int outBegIdx,
             out int outNbElement,
-            double optInPenetration = 0.5)
+            decimal optInPenetration = 0.5m)
         {
             outBegIdx = outNbElement = 0;
 
@@ -23,7 +23,7 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.OutOfRangeStartIndex;
             }
 
-            if (inOpen == null || inHigh == null || inLow == null || inClose == null || outInteger == null || optInPenetration < 0.0)
+            if (inOpen == null || inHigh == null || inLow == null || inClose == null || outInteger == null || optInPenetration <  0.0m)
             {
                 return RetCode.BadParam;
             }

@@ -5,12 +5,12 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode UltOsc(
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod1 = 7,
@@ -67,11 +67,11 @@ namespace TALib.NETCore.HighPerf
             optInTimePeriod2 = sortedPeriods[1];
             optInTimePeriod3 = sortedPeriods[0];
 
-            double trueRange;
-            double closeMinusTrueLow;
+            decimal trueRange;
+            decimal closeMinusTrueLow;
 
-            double a1Total = default;
-            double b1Total = default;
+            decimal a1Total = default;
+            decimal b1Total = default;
             for (int i = startIdx - optInTimePeriod1 + 1; i < startIdx; ++i)
             {
                 HighPerf.Lib.CalcTerms(ref inLow, ref inHigh, ref inClose, i, out trueRange, out closeMinusTrueLow);
@@ -79,8 +79,8 @@ namespace TALib.NETCore.HighPerf
                 b1Total += trueRange;
             }
 
-            double a2Total = default;
-            double b2Total = default;
+            decimal a2Total = default;
+            decimal b2Total = default;
             for (int i = startIdx - optInTimePeriod2 + 1; i < startIdx; ++i)
             {
                 HighPerf.Lib.CalcTerms(ref inLow, ref inHigh, ref inClose, i, out trueRange, out closeMinusTrueLow);
@@ -88,8 +88,8 @@ namespace TALib.NETCore.HighPerf
                 b2Total += trueRange;
             }
 
-            double a3Total = default;
-            double b3Total = default;
+            decimal a3Total = default;
+            decimal b3Total = default;
             for (int i = startIdx - optInTimePeriod3 + 1; i < startIdx; ++i)
             {
                 HighPerf.Lib.CalcTerms(ref inLow, ref inHigh, ref inClose, i, out trueRange, out closeMinusTrueLow);
@@ -112,16 +112,16 @@ namespace TALib.NETCore.HighPerf
                 b2Total += trueRange;
                 b3Total += trueRange;
 
-                double output = default;
+                decimal output = default;
 
                 if (!HighPerf.Lib.IsZero(b1Total))
                 {
-                    output += 4.0 * (a1Total / b1Total);
+                    output += 4.0m * (a1Total / b1Total);
                 }
 
                 if (!HighPerf.Lib.IsZero(b2Total))
                 {
-                    output += 2.0 * (a2Total / b2Total);
+                    output += 2.0m * (a2Total / b2Total);
                 }
 
                 if (!HighPerf.Lib.IsZero(b3Total))
@@ -141,7 +141,7 @@ namespace TALib.NETCore.HighPerf
                 a3Total -= closeMinusTrueLow;
                 b3Total -= trueRange;
 
-                outReal[outIdx++] = 100.0 * (output / 7.0);
+                outReal[outIdx++] = 100.0m * (output / 7.0m);
                 today++;
                 trailingIdx1++;
                 trailingIdx2++;

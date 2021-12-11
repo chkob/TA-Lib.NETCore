@@ -5,7 +5,7 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode MinIndex(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
             int[] outInteger,
@@ -40,11 +40,11 @@ namespace TALib.NETCore.HighPerf
             int today = startIdx;
             int trailingIdx = startIdx - lookbackTotal;
             int lowestIdx = -1;
-            double lowest = default;
+            decimal lowest = default;
 
             while (today <= endIdx)
             {
-                double tmp = inReal[today];
+                decimal tmp = inReal[today];
                 if (lowestIdx < trailingIdx)
                 {
                     lowestIdx = trailingIdx;

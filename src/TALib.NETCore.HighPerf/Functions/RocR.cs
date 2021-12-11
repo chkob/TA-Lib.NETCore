@@ -5,10 +5,10 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode RocR(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 10)
@@ -41,8 +41,8 @@ namespace TALib.NETCore.HighPerf
             int trailingIdx = startIdx - lookbackTotal;
             while (inIdx <= endIdx)
             {
-                double tempReal = inReal[trailingIdx++];
-                outReal[outIdx++] = !tempReal.Equals(0.0) ? inReal[inIdx] / tempReal : 0.0;
+                decimal tempReal = inReal[trailingIdx++];
+                outReal[outIdx++] = !tempReal.Equals(0.0) ? inReal[inIdx] / tempReal : 0.0m;
                 inIdx++;
             }
 

@@ -5,22 +5,22 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Bbands(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize,
-            //ref Span<double> inReal,
+            //ref Span<decimal> inReal,
             //int startIdx,
             //int endIdx,
-            //ref Span<double> outRealUpperBand,
-            //ref Span<double> outRealMiddleBand,
-            //ref Span<double> outRealLowerBand,
+            //ref Span<decimal> outRealUpperBand,
+            //ref Span<decimal> outRealMiddleBand,
+            //ref Span<decimal> outRealLowerBand,
             //out int outBegIdx,
             //out int outNbElement,
             MAType optInMAType = MAType.Sma,
             int optInTimePeriod = 5,
-            double optInNbDevUp = 2.0,
-            double optInNbDevDn = 2.0)
+            decimal optInNbDevUp = 2.0m,
+            decimal optInNbDevDn = 2.0m)
         {
             if (optInTimePeriod < 2 || optInTimePeriod > 100000)
             {
@@ -35,8 +35,8 @@ namespace TALib.NETCore.HighPerf
             var outRealMiddleBand = output.Series(inputSize, 1);
             var outRealLowerBand = output.Series(inputSize, 2);
 
-            //Span<double> tempBuffer1;
-            //Span<double> tempBuffer2;
+            //Span<decimal> tempBuffer1;
+            //Span<decimal> tempBuffer2;
             //if (inReal == outRealUpperBand)
             //{
             //    tempBuffer1 = outRealMiddleBand;
@@ -92,8 +92,8 @@ namespace TALib.NETCore.HighPerf
                 BufferHelpers.Copy(ref tempBuffer1, 0, ref outRealMiddleBand, 0, outNbElement);
             }
 
-            double tempReal;
-            double tempReal2;
+            decimal tempReal;
+            decimal tempReal2;
             if (optInNbDevUp.Equals(optInNbDevDn))
             {
                 if (optInNbDevUp.Equals(1.0))

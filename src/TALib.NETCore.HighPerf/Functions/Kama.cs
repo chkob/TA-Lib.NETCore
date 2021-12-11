@@ -5,8 +5,8 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Kama(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize,
             int optInTimePeriod = 30)
@@ -17,10 +17,10 @@ namespace TALib.NETCore.HighPerf
         }
 
         internal static RetCode Kama(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 30)
@@ -48,11 +48,11 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.Success;
             }
 
-            const double constMax = 2.0 / (30.0 + 1.0);
-            const double constDiff = 2.0 / (2.0 + 1.0) - constMax;
+            const decimal constMax = 2.0m / (30.0m + 1.0m);
+            const decimal constDiff = 2.0m / (2.0m + 1.0m) - constMax;
 
-            double sumROC1 = default;
-            double tempReal;
+            decimal sumROC1 = default;
+            decimal tempReal;
             int today = startIdx - lookbackTotal;
             int trailingIdx = today;
             int i = optInTimePeriod;
@@ -63,16 +63,16 @@ namespace TALib.NETCore.HighPerf
                 sumROC1 += Math.Abs(tempReal);
             }
 
-            double prevKAMA = inReal[today - 1];
+            decimal prevKAMA = inReal[today - 1];
 
             tempReal = inReal[today];
-            double tempReal2 = inReal[trailingIdx++];
-            double periodROC = tempReal - tempReal2;
+            decimal tempReal2 = inReal[trailingIdx++];
+            decimal periodROC = tempReal - tempReal2;
 
-            double trailingValue = tempReal2;
+            decimal trailingValue = tempReal2;
             if (sumROC1 <= periodROC || HighPerf.Lib.IsZero(sumROC1))
             {
-                tempReal = 1.0;
+                tempReal = 1.0m;
             }
             else
             {
@@ -95,7 +95,7 @@ namespace TALib.NETCore.HighPerf
                 trailingValue = tempReal2;
                 if (sumROC1 <= periodROC || HighPerf.Lib.IsZero(sumROC1))
                 {
-                    tempReal = 1.0;
+                    tempReal = 1.0m;
                 }
                 else
                 {
@@ -123,7 +123,7 @@ namespace TALib.NETCore.HighPerf
                 trailingValue = tempReal2;
                 if (sumROC1 <= periodROC || HighPerf.Lib.IsZero(sumROC1))
                 {
-                    tempReal = 1.0;
+                    tempReal = 1.0m;
                 }
                 else
                 {

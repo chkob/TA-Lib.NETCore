@@ -5,8 +5,8 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Max(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize,
             int optInTimePeriod = 30)
@@ -36,7 +36,7 @@ namespace TALib.NETCore.HighPerf
             var today = startIdx;
             var trailingIdx = startIdx - lookbackTotal;
             var highestIdx = -1;
-            var highest = 0.0;
+            var highest = 0.0m;
 
             while (today <= endIdx)
             {

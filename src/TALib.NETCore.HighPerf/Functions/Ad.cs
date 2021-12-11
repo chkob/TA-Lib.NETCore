@@ -5,8 +5,8 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Ad(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize)
         {
@@ -21,7 +21,7 @@ namespace TALib.NETCore.HighPerf
             var nbBar = endIdx - startIdx + 1;
             var currentBar = startIdx;
             var outIdx = 0;
-            var ad = 0.0;
+            var ad = 0.0m;
 
             while (nbBar != 0)
             {
@@ -30,7 +30,7 @@ namespace TALib.NETCore.HighPerf
                 var tmp = high - low;
                 var close = inClose[currentBar];
 
-                if (tmp > 0.0)
+                if (tmp > 0.0m)
                 {
                     ad += (close - low - (high - close)) / tmp * inVolume[currentBar];
                 }

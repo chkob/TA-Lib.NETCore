@@ -5,8 +5,8 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Aroon(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize,
             int optInTimePeriod = 14)
@@ -40,9 +40,9 @@ namespace TALib.NETCore.HighPerf
             var trailingIdx = startIdx - lookbackTotal;
             var lowestIdx = -1;
             var highestIdx = -1;
-            var lowest = 0.0;
-            var highest = 0.0;
-            var factor = 100.0 / optInTimePeriod;
+            var lowest = 0.0m;
+            var highest = 0.0m;
+            var factor = 100.0m / optInTimePeriod;
 
             outputSize = endIdx - today + 1;
             var outAroonDown = output.Series(outputSize, 0);

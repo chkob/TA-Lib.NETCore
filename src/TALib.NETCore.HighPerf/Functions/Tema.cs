@@ -5,8 +5,8 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Tema(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize,
             int optInTimePeriod = 30)
@@ -17,10 +17,10 @@ namespace TALib.NETCore.HighPerf
         }
 
         internal static RetCode Tema(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 30)
@@ -50,7 +50,7 @@ namespace TALib.NETCore.HighPerf
             }
 
             int tempInt = lookbackTotal + (endIdx - startIdx) + 1;
-            double k = 2.0 / (optInTimePeriod + 1);
+            decimal k = 2.0m / (optInTimePeriod + 1);
 
             var firstEMA = BufferHelpers.New(tempInt);
             RetCode retCode = INT_EMA(ref inReal, startIdx - lookbackEMA * 2, endIdx, ref firstEMA, out var firstEMABegIdx,
@@ -81,7 +81,7 @@ namespace TALib.NETCore.HighPerf
             int outIdx = default;
             while (outIdx < thirdEMANbElement)
             {
-                outReal[outIdx++] += 3.0 * firstEMA[firstEMAIdx++] - 3.0 * secondEMA[secondEMAIdx++];
+                outReal[outIdx++] += 3.0m * firstEMA[firstEMAIdx++] - 3.0m * secondEMA[secondEMAIdx++];
             }
 
             outNbElement = outIdx;

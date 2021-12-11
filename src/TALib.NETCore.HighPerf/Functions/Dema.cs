@@ -5,8 +5,8 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Dema(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize,
             int optInTimePeriod = 30)
@@ -17,10 +17,10 @@ namespace TALib.NETCore.HighPerf
         }
 
         internal static RetCode Dema(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 30)
@@ -49,7 +49,7 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.Success;
             }
 
-            Span<double> firstEMA;
+            Span<decimal> firstEMA;
             if (inReal == outReal)
             {
                 firstEMA = outReal;
@@ -60,7 +60,7 @@ namespace TALib.NETCore.HighPerf
                 firstEMA = BufferHelpers.New(tempInt);
             }
 
-            double k = 2.0 / (optInTimePeriod + 1);
+            decimal k = 2.0m / (optInTimePeriod + 1);
             RetCode retCode = INT_EMA(ref inReal, startIdx - lookbackEMA, endIdx, ref firstEMA, out var firstEMABegIdx,
                 out var firstEMANbElement, optInTimePeriod, k);
             if (retCode != RetCode.Success || firstEMANbElement == 0)
@@ -81,7 +81,7 @@ namespace TALib.NETCore.HighPerf
             int outIdx = default;
             while (outIdx < secondEMANbElement)
             {
-                outReal[outIdx] = 2.0 * firstEMA[firstEMAIdx++] - secondEMA[outIdx];
+                outReal[outIdx] = 2.0m * firstEMA[firstEMAIdx++] - secondEMA[outIdx];
                 outIdx++;
             }
 

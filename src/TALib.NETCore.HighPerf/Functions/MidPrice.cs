@@ -5,11 +5,11 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode MidPrice(
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 14)
@@ -42,11 +42,11 @@ namespace TALib.NETCore.HighPerf
             int trailingIdx = startIdx - lookbackTotal;
             while (today <= endIdx)
             {
-                double lowest = inLow[trailingIdx];
-                double highest = inHigh[trailingIdx++];
+                decimal lowest = inLow[trailingIdx];
+                decimal highest = inHigh[trailingIdx++];
                 for (int i = trailingIdx; i <= today; i++)
                 {
-                    double tmp = inLow[i];
+                    decimal tmp = inLow[i];
                     if (tmp < lowest)
                     {
                         lowest = tmp;
@@ -59,7 +59,7 @@ namespace TALib.NETCore.HighPerf
                     }
                 }
 
-                outReal[outIdx++] = (highest + lowest) / 2.0;
+                outReal[outIdx++] = (highest + lowest) / 2.0m;
                 today++;
             }
 

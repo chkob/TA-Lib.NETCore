@@ -6,8 +6,8 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Adxr(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize,
             int optInTimePeriod = 14)
@@ -62,7 +62,7 @@ namespace TALib.NETCore.HighPerf
             var nbElement = endIdx - startIdx + 2;
             while (--nbElement != 0)
             {
-                output[outIdx++] = (adx[i++] + adx[j++]) / 2.0;
+                output[outIdx++] = (adx[i++] + adx[j++]) / 2.0m;
             }
             
             outputSize = outIdx;

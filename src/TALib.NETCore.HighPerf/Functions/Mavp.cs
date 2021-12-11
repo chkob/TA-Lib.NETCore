@@ -5,11 +5,11 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Mavp(
-            ref Span<double> inReal,
-            ref Span<double> inPeriods,
+            ref Span<decimal> inReal,
+            ref Span<decimal> inPeriods,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             MAType optInMAType = MAType.Sma,

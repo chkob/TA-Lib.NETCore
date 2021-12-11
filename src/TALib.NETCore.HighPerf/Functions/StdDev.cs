@@ -5,14 +5,14 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode StdDev(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 5,
-            double optInNbDev = 1.0)
+            decimal optInNbDev = 1.0m)
         {
             outBegIdx = outNbElement = 0;
 
@@ -36,16 +36,16 @@ namespace TALib.NETCore.HighPerf
             {
                 for (var i = 0; i < outNbElement; i++)
                 {
-                    double tempReal = outReal[i];
-                    outReal[i] = !HighPerf.Lib.IsZeroOrNeg(tempReal) ? Math.Sqrt(tempReal) * optInNbDev : 0.0;
+                    decimal tempReal = outReal[i];
+                    outReal[i] = !HighPerf.Lib.IsZeroOrNeg(tempReal) ? (decimal) Math.Sqrt((double)tempReal) * optInNbDev : 0.0m;
                 }
             }
             else
             {
                 for (var i = 0; i < outNbElement; i++)
                 {
-                    double tempReal = outReal[i];
-                    outReal[i] = !HighPerf.Lib.IsZeroOrNeg(tempReal) ? Math.Sqrt(tempReal) : 0.0;
+                    decimal tempReal = outReal[i];
+                    outReal[i] = !HighPerf.Lib.IsZeroOrNeg(tempReal) ? (decimal) Math.Sqrt((double)tempReal) : 0.0m;
                 }
             }
 

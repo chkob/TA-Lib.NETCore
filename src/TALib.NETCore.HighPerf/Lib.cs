@@ -11,7 +11,7 @@ namespace TALib.NETCore.HighPerf
             RestoreCandleDefaultSettings(CandleSettingType.AllCandleSettings);
         }
 
-        public static Span<double> Series(this Span<double> item, int size, int dimension, int subSetSize = -1)
+        public static Span<decimal> Series(this Span<decimal> item, int size, int dimension, int subSetSize = -1)
         {
             if (subSetSize > size)
             {
@@ -60,57 +60,57 @@ namespace TALib.NETCore.HighPerf
             switch (settingType)
             {
                 case CandleSettingType.BodyLong:
-                    SetCandleSettings(CandleSettingType.BodyLong, RangeType.RealBody, 10, 1.0);
+                    SetCandleSettings(CandleSettingType.BodyLong, RangeType.RealBody, 10, 1.0m);
                     break;
                 case CandleSettingType.BodyVeryLong:
-                    SetCandleSettings(CandleSettingType.BodyVeryLong, RangeType.RealBody, 10, 3.0);
+                    SetCandleSettings(CandleSettingType.BodyVeryLong, RangeType.RealBody, 10, 3.0m);
                     break;
                 case CandleSettingType.BodyShort:
-                    SetCandleSettings(CandleSettingType.BodyShort, RangeType.RealBody, 10, 1.0);
+                    SetCandleSettings(CandleSettingType.BodyShort, RangeType.RealBody, 10, 1.0m);
                     break;
                 case CandleSettingType.BodyDoji:
-                    SetCandleSettings(CandleSettingType.BodyDoji, RangeType.HighLow, 10, 0.1);
+                    SetCandleSettings(CandleSettingType.BodyDoji, RangeType.HighLow, 10, 0.1m);
                     break;
                 case CandleSettingType.ShadowLong:
-                    SetCandleSettings(CandleSettingType.ShadowLong, RangeType.RealBody, 0, 1.0);
+                    SetCandleSettings(CandleSettingType.ShadowLong, RangeType.RealBody, 0, 1.0m);
                     break;
                 case CandleSettingType.ShadowVeryLong:
-                    SetCandleSettings(CandleSettingType.ShadowVeryLong, RangeType.RealBody, 0, 2.0);
+                    SetCandleSettings(CandleSettingType.ShadowVeryLong, RangeType.RealBody, 0, 2.0m);
                     break;
                 case CandleSettingType.ShadowShort:
-                    SetCandleSettings(CandleSettingType.ShadowShort, RangeType.Shadows, 10, 1.0);
+                    SetCandleSettings(CandleSettingType.ShadowShort, RangeType.Shadows, 10, 1.0m);
                     break;
                 case CandleSettingType.ShadowVeryShort:
-                    SetCandleSettings(CandleSettingType.ShadowVeryShort, RangeType.HighLow, 10, 0.1);
+                    SetCandleSettings(CandleSettingType.ShadowVeryShort, RangeType.HighLow, 10, 0.1m);
                     break;
                 case CandleSettingType.Near:
-                    SetCandleSettings(CandleSettingType.Near, RangeType.HighLow, 5, 0.2);
+                    SetCandleSettings(CandleSettingType.Near, RangeType.HighLow, 5, 0.2m);
                     break;
                 case CandleSettingType.Far:
-                    SetCandleSettings(CandleSettingType.Far, RangeType.HighLow, 5, 0.6);
+                    SetCandleSettings(CandleSettingType.Far, RangeType.HighLow, 5, 0.6m);
                     break;
                 case CandleSettingType.Equal:
-                    SetCandleSettings(CandleSettingType.Equal, RangeType.HighLow, 5, 0.05);
+                    SetCandleSettings(CandleSettingType.Equal, RangeType.HighLow, 5, 0.05m);
                     break;
                 case CandleSettingType.AllCandleSettings:
-                    SetCandleSettings(CandleSettingType.BodyLong, RangeType.RealBody, 10, 1.0);
-                    SetCandleSettings(CandleSettingType.BodyVeryLong, RangeType.RealBody, 10, 3.0);
-                    SetCandleSettings(CandleSettingType.BodyShort, RangeType.RealBody, 10, 1.0);
-                    SetCandleSettings(CandleSettingType.BodyDoji, RangeType.HighLow, 10, 0.1);
-                    SetCandleSettings(CandleSettingType.ShadowLong, RangeType.RealBody, 0, 1.0);
-                    SetCandleSettings(CandleSettingType.ShadowVeryLong, RangeType.RealBody, 0, 2.0);
-                    SetCandleSettings(CandleSettingType.ShadowShort, RangeType.Shadows, 10, 1.0);
-                    SetCandleSettings(CandleSettingType.ShadowVeryShort, RangeType.HighLow, 10, 0.1);
-                    SetCandleSettings(CandleSettingType.Near, RangeType.HighLow, 5, 0.2);
-                    SetCandleSettings(CandleSettingType.Far, RangeType.HighLow, 5, 0.6);
-                    SetCandleSettings(CandleSettingType.Equal, RangeType.HighLow, 5, 0.05);
+                    SetCandleSettings(CandleSettingType.BodyLong, RangeType.RealBody, 10, 1.0m);
+                    SetCandleSettings(CandleSettingType.BodyVeryLong, RangeType.RealBody, 10, 3.0m);
+                    SetCandleSettings(CandleSettingType.BodyShort, RangeType.RealBody, 10, 1.0m);
+                    SetCandleSettings(CandleSettingType.BodyDoji, RangeType.HighLow, 10, 0.1m);
+                    SetCandleSettings(CandleSettingType.ShadowLong, RangeType.RealBody, 0, 1.0m);
+                    SetCandleSettings(CandleSettingType.ShadowVeryLong, RangeType.RealBody, 0, 2.0m);
+                    SetCandleSettings(CandleSettingType.ShadowShort, RangeType.Shadows, 10, 1.0m);
+                    SetCandleSettings(CandleSettingType.ShadowVeryShort, RangeType.HighLow, 10, 0.1m);
+                    SetCandleSettings(CandleSettingType.Near, RangeType.HighLow, 5, 0.2m);
+                    SetCandleSettings(CandleSettingType.Far, RangeType.HighLow, 5, 0.6m);
+                    SetCandleSettings(CandleSettingType.Equal, RangeType.HighLow, 5, 0.05m);
                     break;
             }
 
             return RetCode.Success;
         }
 
-        private static RetCode SetCandleSettings(CandleSettingType settingType, RangeType rangeType, int avgPeriod, double factor)
+        private static RetCode SetCandleSettings(CandleSettingType settingType, RangeType rangeType, int avgPeriod, decimal factor)
         {
             if (settingType >= CandleSettingType.AllCandleSettings)
             {
@@ -126,14 +126,14 @@ namespace TALib.NETCore.HighPerf
         }
 
         private static RetCode INT_EMA(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod,
-            double optInK1)
+            decimal optInK1)
         {
             outBegIdx = outNbElement = 0;
 
@@ -151,12 +151,12 @@ namespace TALib.NETCore.HighPerf
             outBegIdx = startIdx;
 
             int today;
-            double prevMA;
+            decimal prevMA;
             if (Globals.Compatibility == Compatibility.Default)
             {
                 today = startIdx - lookbackTotal;
                 int i = optInTimePeriod;
-                double tempReal = default;
+                decimal tempReal = default;
                 while (i-- > 0)
                 {
                     tempReal += inReal[today++];
@@ -189,8 +189,8 @@ namespace TALib.NETCore.HighPerf
         }
 
         private static RetCode INT_MACD(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize,
             int optInFastPeriod,
@@ -205,26 +205,26 @@ namespace TALib.NETCore.HighPerf
             var startIdx = 0;
             var endIdx = inputSize - 1;
 
-            double k1;
-            double k2;
+            decimal k1;
+            decimal k2;
             if (optInSlowPeriod != 0)
             {
-                k1 = 2.0 / (optInSlowPeriod + 1);
+                k1 = 2.0m / (optInSlowPeriod + 1);
             }
             else
             {
                 optInSlowPeriod = 26;
-                k1 = 0.075;
+                k1 = 0.075m;
             }
 
             if (optInFastPeriod != 0)
             {
-                k2 = 2.0 / (optInFastPeriod + 1);
+                k2 = 2.0m / (optInFastPeriod + 1);
             }
             else
             {
                 optInFastPeriod = 12;
-                k2 = 0.15;
+                k2 = 0.15m;
             }
 
             var lookbackSignal = EmaLookback(optInSignalPeriod);
@@ -306,7 +306,7 @@ namespace TALib.NETCore.HighPerf
                 out _,
                 out outNbElement2,
                 optInSignalPeriod,
-                2.0 / (optInSignalPeriod + 1));
+                2.0m / (optInSignalPeriod + 1));
 
             if (retCode != RetCode.Success)
             {
@@ -323,16 +323,16 @@ namespace TALib.NETCore.HighPerf
         }
         
         private static RetCode INT_PO(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInFastPeriod,
             int optInSlowPeriod,
             MAType optInMethod,
-            ref Span<double> tempBuffer,
+            ref Span<decimal> tempBuffer,
             bool doPercentageOutput)
         {
             outBegIdx = outNbElement = 0;
@@ -358,8 +358,8 @@ namespace TALib.NETCore.HighPerf
             {
                 if (doPercentageOutput)
                 {
-                    double tempReal = outReal[i];
-                    outReal[i] = !Lib.IsZero(tempReal) ? (tempBuffer[j] - tempReal) / tempReal * 100.0 : 0.0;
+                    decimal tempReal = outReal[i];
+                    outReal[i] = !Lib.IsZero(tempReal) ? (tempBuffer[j] - tempReal) / tempReal * 100.0m : 0.0m;
                 }
                 else
                 {
@@ -374,10 +374,10 @@ namespace TALib.NETCore.HighPerf
         }
 
         private static RetCode INT_SMA(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod)
@@ -395,7 +395,7 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.Success;
             }
 
-            double periodTotal = default;
+            decimal periodTotal = default;
             int trailingIdx = startIdx - lookbackTotal;
             int i = trailingIdx;
             if (optInTimePeriod > 1)
@@ -410,7 +410,7 @@ namespace TALib.NETCore.HighPerf
             do
             {
                 periodTotal += inReal[i++];
-                double tempReal = periodTotal;
+                decimal tempReal = periodTotal;
                 periodTotal -= inReal[trailingIdx++];
                 outReal[outIdx++] = tempReal / optInTimePeriod;
             } while (i <= endIdx);
@@ -422,29 +422,29 @@ namespace TALib.NETCore.HighPerf
         }
 
         private static void INT_StdDevUsingPrecalcMA(
-            ref Span<double> inReal,
-            ref Span<double> inMovAvg,
+            ref Span<decimal> inReal,
+            ref Span<decimal> inMovAvg,
             int inMovAvgBegIdx,
             int inMovAvgNbElement,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             int optInTimePeriod)
         {
             int startSum = inMovAvgBegIdx + 1 - optInTimePeriod;
             int endSum = inMovAvgBegIdx;
-            double periodTotal2 = default;
+            decimal periodTotal2 = default;
             for (int outIdx = startSum; outIdx < endSum; outIdx++)
             {
-                double tempReal = inReal[outIdx];
+                decimal tempReal = inReal[outIdx];
                 tempReal *= tempReal;
                 periodTotal2 += tempReal;
             }
 
             for (var outIdx = 0; outIdx < inMovAvgNbElement; outIdx++, startSum++, endSum++)
             {
-                double tempReal = inReal[endSum];
+                decimal tempReal = inReal[endSum];
                 tempReal *= tempReal;
                 periodTotal2 += tempReal;
-                double meanValue2 = periodTotal2 / optInTimePeriod;
+                decimal meanValue2 = periodTotal2 / optInTimePeriod;
 
                 tempReal = inReal[startSum];
                 tempReal *= tempReal;
@@ -454,15 +454,15 @@ namespace TALib.NETCore.HighPerf
                 tempReal *= tempReal;
                 meanValue2 -= tempReal;
 
-                outReal[outIdx] = !Lib.IsZeroOrNeg(meanValue2) ? Math.Sqrt(meanValue2) : 0.0;
+                outReal[outIdx] = !Lib.IsZeroOrNeg(meanValue2) ? (decimal) Math.Sqrt((double)meanValue2) : 0.0m;
             }
         }
 
         private static RetCode INT_VAR(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod)
@@ -480,15 +480,15 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.Success;
             }
 
-            double periodTotal1 = default;
-            double periodTotal2 = default;
+            decimal periodTotal1 = default;
+            decimal periodTotal2 = default;
             int trailingIdx = startIdx - lookbackTotal;
             int i = trailingIdx;
             if (optInTimePeriod > 1)
             {
                 while (i < startIdx)
                 {
-                    double tempReal = inReal[i++];
+                    decimal tempReal = inReal[i++];
                     periodTotal1 += tempReal;
                     tempReal *= tempReal;
                     periodTotal2 += tempReal;
@@ -498,12 +498,12 @@ namespace TALib.NETCore.HighPerf
             int outIdx = default;
             do
             {
-                double tempReal = inReal[i++];
+                decimal tempReal = inReal[i++];
                 periodTotal1 += tempReal;
                 tempReal *= tempReal;
                 periodTotal2 += tempReal;
-                double meanValue1 = periodTotal1 / optInTimePeriod;
-                double meanValue2 = periodTotal2 / optInTimePeriod;
+                decimal meanValue1 = periodTotal1 / optInTimePeriod;
+                decimal meanValue2 = periodTotal2 / optInTimePeriod;
                 tempReal = inReal[trailingIdx++];
                 periodTotal1 -= tempReal;
                 tempReal *= tempReal;
@@ -520,7 +520,7 @@ namespace TALib.NETCore.HighPerf
         private class CandleSetting
         {
             internal int AvgPeriod;
-            internal double Factor;
+            internal decimal Factor;
             internal RangeType RangeType;
             internal CandleSettingType SettingType;
         }

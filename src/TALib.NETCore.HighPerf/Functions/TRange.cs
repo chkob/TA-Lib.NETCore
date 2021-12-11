@@ -5,12 +5,12 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode TRange(
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement)
         {
@@ -41,18 +41,18 @@ namespace TALib.NETCore.HighPerf
             int today = startIdx;
             while (today <= endIdx)
             {
-                double tempLT = inLow[today];
-                double tempHT = inHigh[today];
-                double tempCY = inClose[today - 1];
-                double greatest = tempHT - tempLT;
+                decimal tempLT = inLow[today];
+                decimal tempHT = inHigh[today];
+                decimal tempCY = inClose[today - 1];
+                decimal greatest = tempHT - tempLT;
 
-                double val2 = Math.Abs(tempCY - tempHT);
+                decimal val2 = Math.Abs(tempCY - tempHT);
                 if (val2 > greatest)
                 {
                     greatest = val2;
                 }
 
-                double val3 = Math.Abs(tempCY - tempLT);
+                decimal val3 = Math.Abs(tempCY - tempLT);
                 if (val3 > greatest)
                 {
                     greatest = val3;

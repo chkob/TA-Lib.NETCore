@@ -5,13 +5,13 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Bop(
-            ref Span<double> inOpen,
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inOpen,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement)
         {
@@ -30,8 +30,8 @@ namespace TALib.NETCore.HighPerf
             int outIdx = default;
             for (var i = startIdx; i <= endIdx; i++)
             {
-                double tempReal = inHigh[i] - inLow[i];
-                outReal[outIdx++] = !HighPerf.Lib.IsZeroOrNeg(tempReal) ? (inClose[i] - inOpen[i]) / tempReal : 0.0;
+                decimal tempReal = inHigh[i] - inLow[i];
+                outReal[outIdx++] = !HighPerf.Lib.IsZeroOrNeg(tempReal) ? (inClose[i] - inOpen[i]) / tempReal : 0.0m;
             }
 
             outBegIdx = startIdx;

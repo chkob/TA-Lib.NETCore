@@ -5,12 +5,12 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Cci(
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 14)
@@ -44,7 +44,7 @@ namespace TALib.NETCore.HighPerf
             int i = startIdx - lookbackTotal;
             while (i < startIdx)
             {
-                circBuffer[circBufferIdx++] = (inHigh[i] + inLow[i] + inClose[i]) / 3.0;
+                circBuffer[circBufferIdx++] = (inHigh[i] + inLow[i] + inClose[i]) / 3.0m;
                 i++;
                 if (circBufferIdx > maxIdxCircBuffer)
                 {
@@ -55,26 +55,26 @@ namespace TALib.NETCore.HighPerf
             int outIdx = default;
             do
             {
-                double lastValue = (inHigh[i] + inLow[i] + inClose[i]) / 3.0;
+                decimal lastValue = (inHigh[i] + inLow[i] + inClose[i]) / 3.0m;
                 circBuffer[circBufferIdx++] = lastValue;
 
-                double theAverage = default;
+                decimal theAverage = default;
                 for (var j = 0; j < optInTimePeriod; j++)
                 {
                     theAverage += circBuffer[j];
                 }
                 theAverage /= optInTimePeriod;
 
-                double tempReal2 = default;
+                decimal tempReal2 = default;
                 for (var j = 0; j < optInTimePeriod; j++)
                 {
                     tempReal2 += Math.Abs(circBuffer[j] - theAverage);
                 }
 
-                double tempReal = lastValue - theAverage;
+                decimal tempReal = lastValue - theAverage;
                 outReal[outIdx++] = !tempReal.Equals(0.0) && !tempReal2.Equals(0.0)
-                    ? tempReal / (0.015 * (tempReal2 / optInTimePeriod))
-                    : 0.0;
+                    ? tempReal / (0.015m * (tempReal2 / optInTimePeriod))
+                    : 0.0m;
 
                 if (circBufferIdx > maxIdxCircBuffer)
                 {

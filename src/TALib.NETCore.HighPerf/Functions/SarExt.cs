@@ -5,21 +5,21 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode SarExt(
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
-            double optInStartValue = 0.0,
-            double optInOffsetOnReverse = 0.0,
-            double optInAccelerationInitLong = 0.02,
-            double optInAccelerationLong = 0.02,
-            double optInAccelerationMaxLong = 0.2,
-            double optInAccelerationInitShort = 0.02,
-            double optInAccelerationShort = 0.02,
-            double optInAccelerationMaxShort = 0.2)
+            decimal optInStartValue = 0.0m,
+            decimal optInOffsetOnReverse = 0.0m,
+            decimal optInAccelerationInitLong = 0.02m,
+            decimal optInAccelerationLong = 0.02m,
+            decimal optInAccelerationMaxLong = 0.2m,
+            decimal optInAccelerationInitShort = 0.02m,
+            decimal optInAccelerationShort = 0.02m,
+            decimal optInAccelerationMaxShort = 0.2m)
         {
             outBegIdx = outNbElement = 0;
 
@@ -28,9 +28,9 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.OutOfRangeStartIndex;
             }
 
-            if (inHigh == null || inLow == null || outReal == null || optInOffsetOnReverse < 0.0 || optInAccelerationInitLong < 0.0 ||
-                optInAccelerationLong < 0.0 || optInAccelerationMaxLong < 0.0 || optInAccelerationInitShort < 0.0 ||
-                optInAccelerationShort < 0.0 || optInAccelerationMaxShort < 0.0)
+            if (inHigh == null || inLow == null || outReal == null || optInOffsetOnReverse < 0.0m || optInAccelerationInitLong < 0.0m ||
+                optInAccelerationLong < 0.0m || optInAccelerationMaxLong < 0.0m || optInAccelerationInitShort < 0.0m ||
+                optInAccelerationShort < 0.0m || optInAccelerationMaxShort < 0.0m)
             {
                 return RetCode.BadParam;
             }
@@ -46,12 +46,12 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.Success;
             }
 
-            double sar;
-            double ep;
+            decimal sar;
+            decimal ep;
             bool isLong;
 
-            double afLong = optInAccelerationInitLong;
-            double afShort = optInAccelerationInitShort;
+            decimal afLong = optInAccelerationInitLong;
+            decimal afShort = optInAccelerationInitShort;
             if (afLong > optInAccelerationMaxLong)
             {
                 optInAccelerationInitLong = optInAccelerationMaxLong;
@@ -83,9 +83,9 @@ namespace TALib.NETCore.HighPerf
                     return retCode;
                 }
 
-                isLong = epTemp[0] <= 0.0;
+                isLong = epTemp[0] <= 0.0m;
             }
-            else if (optInStartValue > 0.0)
+            else if (optInStartValue > 0.0m)
             {
                 isLong = true;
             }
@@ -99,8 +99,8 @@ namespace TALib.NETCore.HighPerf
 
             int todayIdx = startIdx;
 
-            double newHigh = inHigh[todayIdx - 1];
-            double newLow = inLow[todayIdx - 1];
+            decimal newHigh = inHigh[todayIdx - 1];
+            decimal newLow = inLow[todayIdx - 1];
             if (optInStartValue.Equals(0.0))
             {
                 if (isLong)
@@ -114,7 +114,7 @@ namespace TALib.NETCore.HighPerf
                     sar = newHigh;
                 }
             }
-            else if (optInStartValue > 0.0)
+            else if (optInStartValue > 0.0m)
             {
                 ep = inHigh[todayIdx];
                 sar = optInStartValue;
@@ -130,8 +130,8 @@ namespace TALib.NETCore.HighPerf
 
             while (todayIdx <= endIdx)
             {
-                double prevLow = newLow;
-                double prevHigh = newHigh;
+                decimal prevLow = newLow;
+                decimal prevHigh = newHigh;
                 newLow = inLow[todayIdx];
                 newHigh = inHigh[todayIdx++];
                 if (isLong)

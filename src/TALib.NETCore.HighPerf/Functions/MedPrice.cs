@@ -5,11 +5,11 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode MedPrice(
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement)
         {
@@ -28,7 +28,7 @@ namespace TALib.NETCore.HighPerf
             int outIdx = default;
             for (int i = startIdx; i <= endIdx; i++)
             {
-                outReal[outIdx++] = (inHigh[i] + inLow[i]) / 2.0;
+                outReal[outIdx++] = (inHigh[i] + inLow[i]) / 2.0m;
             }
 
             outBegIdx = startIdx;

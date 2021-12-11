@@ -200,7 +200,7 @@ namespace TALib.NETCore.HighPerf
             { FunctionNames.Correl.ToString().ToLowerInvariant(), new Function(FunctionNames.Correl, "Pearson's Correlation Coefficient (r)", "Statistic Functions", RealType + "|" + RealType, "Time Period", RealType) },
             { FunctionNames.Cos.ToString().ToLowerInvariant(), new Function(FunctionNames.Cos, "Vector Trigonometric Cos", "Math Transform", RealType, string.Empty, RealType) },
             { FunctionNames.Cosh.ToString().ToLowerInvariant(), new Function(FunctionNames.Cosh, "Vector Trigonometric Cosh", "Math Transform", RealType, string.Empty, RealType) },
-            { FunctionNames.Dema.ToString().ToLowerInvariant(), new Function(FunctionNames.Dema, "Double Exponential Moving Average", "Overlap Studies", RealType, "Time Period", RealType) },
+            { FunctionNames.Dema.ToString().ToLowerInvariant(), new Function(FunctionNames.Dema, "decimal Exponential Moving Average", "Overlap Studies", RealType, "Time Period", RealType) },
             { FunctionNames.Div.ToString().ToLowerInvariant(), new Function(FunctionNames.Div, "Vector Arithmetic Div", "Math Operators", RealType + "|" + RealType, string.Empty, RealType) },
             { FunctionNames.Dx.ToString().ToLowerInvariant(), new Function(FunctionNames.Dx, "Directional Movement Index", "Momentum Indicators", "High|Low|Close", "Time Period", RealType) },
             { FunctionNames.Ema.ToString().ToLowerInvariant(), new Function(FunctionNames.Ema, "Exponential Moving Average", "Overlap Studies", RealType, "Time Period", RealType) },

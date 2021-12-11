@@ -5,12 +5,12 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode WclPrice(
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement)
         {
@@ -29,7 +29,7 @@ namespace TALib.NETCore.HighPerf
             int outIdx = default;
             for (int i = startIdx; i <= endIdx; i++)
             {
-                outReal[outIdx++] = (inHigh[i] + inLow[i] + inClose[i] * 2.0) / 4.0;
+                outReal[outIdx++] = (inHigh[i] + inLow[i] + inClose[i] * 2.0m) / 4.0m;
             }
 
             outBegIdx = startIdx;

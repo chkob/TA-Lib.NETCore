@@ -5,10 +5,10 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode DragonflyDoji(
-            ref Span<double> inOpen,
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inOpen,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
             int[] outInteger,
@@ -38,9 +38,9 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.Success;
             }
 
-            double bodyDojiPeriodTotal = default;
+            decimal bodyDojiPeriodTotal = default;
             int bodyDojiTrailingIdx = startIdx - CandleAvgPeriod(CandleSettingType.BodyDoji);
-            double shadowVeryShortPeriodTotal = default;
+            decimal shadowVeryShortPeriodTotal = default;
             int shadowVeryShortTrailingIdx = startIdx - CandleAvgPeriod(CandleSettingType.ShadowVeryShort);
             int i = bodyDojiTrailingIdx;
             while (i < startIdx)

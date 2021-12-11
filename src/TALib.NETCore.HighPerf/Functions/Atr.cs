@@ -5,16 +5,16 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Atr(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize,
-            //ref Span<double> inHigh,
-            //ref Span<double> inLow,
-            //ref Span<double> inClose,
+            //ref Span<decimal> inHigh,
+            //ref Span<decimal> inLow,
+            //ref Span<decimal> inClose,
             //int startIdx,
             //int endIdx,
-            //ref Span<double> outReal,
+            //ref Span<decimal> outReal,
             //out int outBegIdx,
             //out int outNbElement,
             int optInTimePeriod = 14)

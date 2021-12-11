@@ -5,10 +5,10 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode DojiStar(
-            ref Span<double> inOpen,
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inOpen,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
             int[] outInteger,
@@ -38,8 +38,8 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.Success;
             }
 
-            double bodyLongPeriodTotal = default;
-            double bodyDojiPeriodTotal = default;
+            decimal bodyLongPeriodTotal = default;
+            decimal bodyDojiPeriodTotal = default;
             int bodyLongTrailingIdx = startIdx - 1 - CandleAvgPeriod(CandleSettingType.BodyLong);
             int bodyDojiTrailingIdx = startIdx - CandleAvgPeriod(CandleSettingType.BodyDoji);
             int i = bodyLongTrailingIdx;

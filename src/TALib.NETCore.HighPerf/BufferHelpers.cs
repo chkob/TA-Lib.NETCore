@@ -4,13 +4,13 @@ namespace TALib.NETCore.HighPerf
 {
     public static class BufferHelpers
     {
-        public static Span<double> New(int size) =>
-            new Memory<double>(new double[size]).Span; // TODO: use memory pool
+        public static Span<decimal> New(int size) =>
+            new Memory<decimal>(new decimal[size]).Span; // TODO: use memory pool
 
         public static void Copy(
-            ref Span<double> source,
+            ref Span<decimal> source,
             int sourceIndex,
-            ref Span<double> destination,
+            ref Span<decimal> destination,
             int destinationIndex,
             int length)
         {

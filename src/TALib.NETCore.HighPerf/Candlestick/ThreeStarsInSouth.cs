@@ -5,10 +5,10 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode ThreeStarsInSouth(
-            ref Span<double> inOpen,
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inOpen,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
             int[] outInteger,
@@ -39,12 +39,12 @@ namespace TALib.NETCore.HighPerf
             }
 
             var shadowVeryShortPeriodTotal = BufferHelpers.New(2);
-            double bodyLongPeriodTotal = default;
+            decimal bodyLongPeriodTotal = default;
             int bodyLongTrailingIdx = startIdx - CandleAvgPeriod(CandleSettingType.BodyLong);
-            double shadowLongPeriodTotal = default;
+            decimal shadowLongPeriodTotal = default;
             int shadowLongTrailingIdx = startIdx - CandleAvgPeriod(CandleSettingType.ShadowLong);
             int shadowVeryShortTrailingIdx = startIdx - CandleAvgPeriod(CandleSettingType.ShadowVeryShort);
-            double bodyShortPeriodTotal = default;
+            decimal bodyShortPeriodTotal = default;
             int bodyShortTrailingIdx = startIdx - CandleAvgPeriod(CandleSettingType.BodyShort);
 
             int i = bodyLongTrailingIdx;

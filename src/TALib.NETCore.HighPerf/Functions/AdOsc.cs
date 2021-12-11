@@ -5,8 +5,8 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode AdOsc(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize,
             int optInFastPeriod = 3,
@@ -41,11 +41,11 @@ namespace TALib.NETCore.HighPerf
 
             var today = startIdx - lookbackTotal;
 
-            var ad = 0.0;
-            var fastk = 2.0 / (optInFastPeriod + 1);
-            var oneMinusFastk = 1.0 - fastk;
-            var slowk = 2.0 / (optInSlowPeriod + 1);
-            var oneMinusSlowk = 1.0 - slowk;
+            var ad = 0.0m;
+            var fastk = 2.0m / (optInFastPeriod + 1);
+            var oneMinusFastk = (decimal)(1.0m - fastk);
+            var slowk = 2.0m / (optInSlowPeriod + 1);
+            var oneMinusSlowk = (decimal)(1.0m - slowk);
 
             CalculateAd(ref inHigh, ref inLow, ref inClose, ref inVolume, ref ad, ref today);
             var fastEMA = ad;
@@ -74,18 +74,18 @@ namespace TALib.NETCore.HighPerf
         }
 
         private static void CalculateAd(
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
-            ref Span<double> inVolume,
-            ref double ad,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
+            ref Span<decimal> inVolume,
+            ref decimal ad,
             ref int today)
         {
-            double h = inHigh[today];
-            double l = inLow[today];
-            double tmp = h - l;
-            double c = inClose[today];
-            if (tmp > 0.0)
+            decimal h = inHigh[today];
+            decimal l = inLow[today];
+            decimal tmp = h - l;
+            decimal c = inClose[today];
+            if (tmp > 0.0m)
             {
                 ad += (c - l - (h - c)) / tmp * inVolume[today];
             }

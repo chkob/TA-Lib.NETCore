@@ -6,14 +6,14 @@ namespace TALib.NETCore.HighPerf
     {
         // TODO: Find unit test data
         public static RetCode Accbands(
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
-            ref Span<double> outRealUpperBand,
-            ref Span<double> outRealMiddleBand,
-            ref Span<double> outRealLowerBand,
+            ref Span<decimal> outRealUpperBand,
+            ref Span<decimal> outRealMiddleBand,
+            ref Span<decimal> outRealLowerBand,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 20)
@@ -49,7 +49,7 @@ namespace TALib.NETCore.HighPerf
 
             for (int j = 0, i = startIdx - lookbackTotal; i <= endIdx; i++, j++)
             {
-                double tempReal = inHigh[i] + inLow[i];
+                decimal tempReal = inHigh[i] + inLow[i];
                 if (!HighPerf.Lib.IsZero(tempReal))
                 {
                     tempReal = 4 * (inHigh[i] - inLow[i]) / tempReal;

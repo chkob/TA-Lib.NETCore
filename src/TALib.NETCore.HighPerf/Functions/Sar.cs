@@ -5,15 +5,15 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Sar(
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
-            double optInAcceleration = 0.02,
-            double optInMaximum = 0.2)
+            decimal optInAcceleration = 0.02m,
+            decimal optInMaximum = 0.2m)
         {
             outBegIdx = outNbElement = 0;
 
@@ -22,7 +22,7 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.OutOfRangeStartIndex;
             }
 
-            if (inHigh == null || inLow == null || outReal == null || optInAcceleration < 0.0 || optInMaximum < 0.0)
+            if (inHigh == null || inLow == null || outReal == null || optInAcceleration < 0.0m || optInMaximum < 0.0m)
             {
                 return RetCode.BadParam;
             }
@@ -38,7 +38,7 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.Success;
             }
 
-            double af = optInAcceleration;
+            decimal af = optInAcceleration;
             if (af > optInMaximum)
             {
                 af = optInAcceleration = optInMaximum;
@@ -52,15 +52,15 @@ namespace TALib.NETCore.HighPerf
             }
 
             outBegIdx = startIdx;
-            double sar;
-            double ep;
+            decimal sar;
+            decimal ep;
             int outIdx = default;
 
             int todayIdx = startIdx;
 
-            double newHigh = inHigh[todayIdx - 1];
-            double newLow = inLow[todayIdx - 1];
-            var isLong = epTemp[0] <= 0.0;
+            decimal newHigh = inHigh[todayIdx - 1];
+            decimal newLow = inLow[todayIdx - 1];
+            var isLong = epTemp[0] <= 0.0m;
             if (isLong)
             {
                 ep = inHigh[todayIdx];
@@ -77,8 +77,8 @@ namespace TALib.NETCore.HighPerf
 
             while (todayIdx <= endIdx)
             {
-                double prevLow = newLow;
-                double prevHigh = newHigh;
+                decimal prevLow = newLow;
+                decimal prevHigh = newHigh;
                 newLow = inLow[todayIdx];
                 newHigh = inHigh[todayIdx];
                 todayIdx++;

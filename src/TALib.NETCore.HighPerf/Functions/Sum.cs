@@ -5,10 +5,10 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Sum(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 30)
@@ -36,7 +36,7 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.Success;
             }
 
-            double periodTotal = default;
+            decimal periodTotal = default;
             int trailingIdx = startIdx - lookbackTotal;
             int i = trailingIdx;
             while (i < startIdx)
@@ -48,7 +48,7 @@ namespace TALib.NETCore.HighPerf
             do
             {
                 periodTotal += inReal[i++];
-                double tempReal = periodTotal;
+                decimal tempReal = periodTotal;
                 periodTotal -= inReal[trailingIdx++];
                 outReal[outIdx++] = tempReal;
             } while (i <= endIdx);

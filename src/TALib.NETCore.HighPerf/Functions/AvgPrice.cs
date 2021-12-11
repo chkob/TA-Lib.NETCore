@@ -5,8 +5,8 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode AvgPrice(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize)
         {
@@ -21,7 +21,7 @@ namespace TALib.NETCore.HighPerf
             var outIdx = 0;
             for (var i = startIdx; i <= endIdx; i++)
             {
-                output[outIdx++] = (inHigh[i] + inLow[i] + inClose[i] + inOpen[i]) / 4.0;
+                output[outIdx++] = (inHigh[i] + inLow[i] + inClose[i] + inOpen[i]) / 4.0m;
             }
 
             outputSize = outIdx;

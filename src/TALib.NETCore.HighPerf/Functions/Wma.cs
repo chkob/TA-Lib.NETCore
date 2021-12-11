@@ -5,8 +5,8 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Wma(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize,
             int optInTimePeriod = 30)
@@ -17,9 +17,9 @@ namespace TALib.NETCore.HighPerf
         }
 
         internal static RetCode Wma(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx, int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 30)
@@ -52,22 +52,22 @@ namespace TALib.NETCore.HighPerf
             int outIdx = default;
             int trailingIdx = startIdx - lookbackTotal;
 
-            double periodSub = default;
-            double periodSum = periodSub;
+            decimal periodSub = default;
+            decimal periodSum = periodSub;
             int inIdx = trailingIdx;
             int i = 1;
             while (inIdx < startIdx)
             {
-                double tempReal = inReal[inIdx++];
+                decimal tempReal = inReal[inIdx++];
                 periodSub += tempReal;
                 periodSum += tempReal * i;
                 i++;
             }
-            double trailingValue = default;
+            decimal trailingValue = default;
 
             while (inIdx <= endIdx)
             {
-                double tempReal = inReal[inIdx++];
+                decimal tempReal = inReal[inIdx++];
                 periodSub += tempReal;
                 periodSub -= trailingValue;
                 periodSum += tempReal * optInTimePeriod;

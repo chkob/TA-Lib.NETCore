@@ -14,7 +14,7 @@ namespace TALib.NETCore.HighPerf
         private const string BegIdxParam = "BegIdx";
         private const string NbElementParam = "NbElement";
 
-        private static readonly Type DoubleSpanType = typeof(Span<>).MakeGenericType(typeof(double)).MakeByRefType();
+        private static readonly Type decimalSpanType = typeof(Span<>).MakeGenericType(typeof(decimal)).MakeByRefType();
 
         internal Function(
             FunctionNames functionName,
@@ -87,13 +87,13 @@ namespace TALib.NETCore.HighPerf
             return (int) method.Invoke(null, paramsArray);
         }
 
-        public RetCode Run(double[][] inputs, double[] options, double[][] outputs)
+        public RetCode Run(decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
             var method = typeof(Lib)
                 .GetMethods(BindingFlags.Static | BindingFlags.Public)
                 .Where(mi => !mi.Name.EndsWith(LookbackSuffix))
-                .SingleOrDefault(mi => MethodFinder(mi, DoubleSpanType)) ??
-            throw new MissingMethodException(typeof(Lib).FullName, $"{Name}<{nameof(Double)}>");
+                .SingleOrDefault(mi => MethodFinder(mi, decimalSpanType)) ??
+            throw new MissingMethodException(typeof(Lib).FullName, $"{Name}<{typeof(decimal).Name}>");
 
             var optInParameters = method.GetParameters().Where(pi => pi.Name.StartsWith(OptInPrefix)).ToList();
 
@@ -144,7 +144,7 @@ namespace TALib.NETCore.HighPerf
             var retCode = (RetCode) method.Invoke(null, paramsArray);
             if (isIntegerOutput && retCode == RetCode.Success)
             {
-                var integerOutputs = Array.ConvertAll((int[]) paramsArray[inputs.Length + 2], i => (double) Convert.ChangeType(i, typeof(double)));
+                var integerOutputs = Array.ConvertAll((int[]) paramsArray[inputs.Length + 2], i => (decimal) Convert.ChangeType(i, typeof(decimal)));
                 Array.Copy(integerOutputs, 0, outputs[0], 0, ((int[]) paramsArray[inputs.Length + 2]).Length);
             }
 

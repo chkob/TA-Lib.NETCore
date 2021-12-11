@@ -5,10 +5,10 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode TasukiGap(
-            ref Span<double> inOpen,
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inOpen,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
             int[] outInteger,
@@ -38,7 +38,7 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.Success;
             }
 
-            double nearPeriodTotal = default;
+            decimal nearPeriodTotal = default;
             int nearTrailingIdx = startIdx - CandleAvgPeriod(CandleSettingType.Near);
             int i = nearTrailingIdx;
             while (i < startIdx)

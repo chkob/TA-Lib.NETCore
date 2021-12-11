@@ -4,7 +4,7 @@ namespace TALib.NETCore.HighPerf
 {
     public static partial class Lib
     {
-        public static RetCode Cmo(ref Span<double> inReal, int startIdx, int endIdx, ref Span<double> outReal, out int outBegIdx, out int outNbElement,
+        public static RetCode Cmo(ref Span<decimal> inReal, int startIdx, int endIdx, ref Span<decimal> outReal, out int outBegIdx, out int outNbElement,
             int optInTimePeriod = 14)
         {
             outBegIdx = outNbElement = 0;
@@ -30,24 +30,24 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.Success;
             }
 
-            double prevLoss;
-            double prevGain;
-            double tempValue1;
-            double tempValue2;
+            decimal prevLoss;
+            decimal prevGain;
+            decimal tempValue1;
+            decimal tempValue2;
             int outIdx = default;
             int today = startIdx - lookbackTotal;
-            double prevValue = inReal[today];
+            decimal prevValue = inReal[today];
             if (HighPerf.Lib.Globals.UnstablePeriod[(int) FuncUnstId.Cmo] == 0 && HighPerf.Lib.Globals.Compatibility == Compatibility.Metastock)
             {
-                double savePrevValue = prevValue;
-                prevGain = 0.0;
-                prevLoss = 0.0;
+                decimal savePrevValue = prevValue;
+                prevGain = 0.0m;
+                prevLoss = 0.0m;
                 for (int i = optInTimePeriod; i > 0; i--)
                 {
                     tempValue1 = inReal[today++];
                     tempValue2 = tempValue1 - prevValue;
                     prevValue = tempValue1;
-                    if (tempValue2 < 0.0)
+                    if (tempValue2 < 0.0m)
                     {
                         prevLoss -= tempValue2;
                     }
@@ -59,9 +59,9 @@ namespace TALib.NETCore.HighPerf
 
                 tempValue1 = prevLoss / optInTimePeriod;
                 tempValue2 = prevGain / optInTimePeriod;
-                double tempValue3 = tempValue2 - tempValue1;
-                double tempValue4 = tempValue1 + tempValue2;
-                outReal[outIdx++] = !HighPerf.Lib.IsZero(tempValue4) ? 100.0 * (tempValue3 / tempValue4) : 0.0;
+                decimal tempValue3 = tempValue2 - tempValue1;
+                decimal tempValue4 = tempValue1 + tempValue2;
+                outReal[outIdx++] = !HighPerf.Lib.IsZero(tempValue4) ? 100.0m * (tempValue3 / tempValue4) : 0.0m;
 
                 if (today > endIdx)
                 {
@@ -75,15 +75,15 @@ namespace TALib.NETCore.HighPerf
                 prevValue = savePrevValue;
             }
 
-            prevGain = 0.0;
-            prevLoss = 0.0;
+            prevGain = 0.0m;
+            prevLoss = 0.0m;
             today++;
             for (int i = optInTimePeriod; i > 0; i--)
             {
                 tempValue1 = inReal[today++];
                 tempValue2 = tempValue1 - prevValue;
                 prevValue = tempValue1;
-                if (tempValue2 < 0.0)
+                if (tempValue2 < 0.0m)
                 {
                     prevLoss -= tempValue2;
                 }
@@ -99,7 +99,7 @@ namespace TALib.NETCore.HighPerf
             if (today > startIdx)
             {
                 tempValue1 = prevGain + prevLoss;
-                outReal[outIdx++] = !HighPerf.Lib.IsZero(tempValue1) ? 100.0 * ((prevGain - prevLoss) / tempValue1) : 0.0;
+                outReal[outIdx++] = !HighPerf.Lib.IsZero(tempValue1) ? 100.0m * ((prevGain - prevLoss) / tempValue1) : 0.0m;
             }
             else
             {
@@ -111,7 +111,7 @@ namespace TALib.NETCore.HighPerf
 
                     prevLoss *= optInTimePeriod - 1;
                     prevGain *= optInTimePeriod - 1;
-                    if (tempValue2 < 0.0)
+                    if (tempValue2 < 0.0m)
                     {
                         prevLoss -= tempValue2;
                     }
@@ -135,7 +135,7 @@ namespace TALib.NETCore.HighPerf
 
                 prevLoss *= optInTimePeriod - 1;
                 prevGain *= optInTimePeriod - 1;
-                if (tempValue2 < 0.0)
+                if (tempValue2 < 0.0m)
                 {
                     prevLoss -= tempValue2;
                 }
@@ -147,7 +147,7 @@ namespace TALib.NETCore.HighPerf
                 prevLoss /= optInTimePeriod;
                 prevGain /= optInTimePeriod;
                 tempValue1 = prevGain + prevLoss;
-                outReal[outIdx++] = !HighPerf.Lib.IsZero(tempValue1) ? 100.0 * ((prevGain - prevLoss) / tempValue1) : 0.0;
+                outReal[outIdx++] = !HighPerf.Lib.IsZero(tempValue1) ? 100.0m * ((prevGain - prevLoss) / tempValue1) : 0.0m;
             }
 
             outBegIdx = startIdx;

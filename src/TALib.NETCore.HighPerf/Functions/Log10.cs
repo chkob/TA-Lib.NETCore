@@ -5,14 +5,14 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Log10(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize)
         {
             for (var i = 0; i < inputSize; i++)
             {
-                output[i] = Math.Log10(input[i]);
+                output[i] = (decimal)Math.Log10((double)input[i]);
             }
 
             outputSize = inputSize;

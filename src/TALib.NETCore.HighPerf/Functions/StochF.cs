@@ -5,13 +5,13 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode StochF(
-            ref Span<double> inHigh,
-            ref Span<double> inLow,
-            ref Span<double> inClose,
+            ref Span<decimal> inHigh,
+            ref Span<decimal> inLow,
+            ref Span<decimal> inClose,
             int startIdx,
             int endIdx,
-            ref Span<double> outFastK,
-            ref Span<double> outFastD,
+            ref Span<decimal> outFastK,
+            ref Span<decimal> outFastD,
             out int outBegIdx,
             out int outNbElement,
             MAType optInFastDMAType = MAType.Sma,
@@ -49,9 +49,9 @@ namespace TALib.NETCore.HighPerf
             int today = trailingIdx + lookbackK;
             int highestIdx = -1;
             int lowestIdx = highestIdx;
-            double highest, lowest;
-            double diff = highest = lowest = default;
-            Span<double> tempBuffer;
+            decimal highest, lowest;
+            decimal diff = highest = lowest = default;
+            Span<decimal> tempBuffer;
             if (outFastK == inHigh || outFastK == inLow || outFastK == inClose)
             {
                 tempBuffer = outFastK;
@@ -67,7 +67,7 @@ namespace TALib.NETCore.HighPerf
 
             while (today <= endIdx)
             {
-                double tmp = inLow[today];
+                decimal tmp = inLow[today];
                 if (lowestIdx < trailingIdx)
                 {
                     lowestIdx = trailingIdx;
@@ -83,13 +83,13 @@ namespace TALib.NETCore.HighPerf
                         }
                     }
 
-                    diff = (highest - lowest) / 100.0;
+                    diff = (highest - lowest) / 100.0m;
                 }
                 else if (tmp <= lowest)
                 {
                     lowestIdx = today;
                     lowest = tmp;
-                    diff = (highest - lowest) / 100.0;
+                    diff = (highest - lowest) / 100.0m;
                 }
 
                 tmp = inHigh[today];
@@ -108,16 +108,16 @@ namespace TALib.NETCore.HighPerf
                         }
                     }
 
-                    diff = (highest - lowest) / 100.0;
+                    diff = (highest - lowest) / 100.0m;
                 }
                 else if (tmp >= highest)
                 {
                     highestIdx = today;
                     highest = tmp;
-                    diff = (highest - lowest) / 100.0;
+                    diff = (highest - lowest) / 100.0m;
                 }
 
-                tempBuffer[outIdx++] = !diff.Equals(0.0) ? (inClose[today] - lowest) / diff : 0.0;
+                tempBuffer[outIdx++] = !diff.Equals(0.0) ? (inClose[today] - lowest) / diff : 0.0m;
 
                 trailingIdx++;
                 today++;

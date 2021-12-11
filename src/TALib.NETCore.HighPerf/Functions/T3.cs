@@ -5,14 +5,14 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode T3(
-            ref Span<double> inReal,
+            ref Span<decimal> inReal,
             int startIdx,
             int endIdx,
-            ref Span<double> outReal,
+            ref Span<decimal> outReal,
             out int outBegIdx,
             out int outNbElement,
             int optInTimePeriod = 5,
-            double optInVFactor = 0.7)
+            decimal optInVFactor = 0.7m)
         {
             outBegIdx = outNbElement = 0;
 
@@ -21,8 +21,8 @@ namespace TALib.NETCore.HighPerf
                 return RetCode.OutOfRangeStartIndex;
             }
 
-            if (inReal == null || outReal == null || optInTimePeriod < 2 || optInTimePeriod > 100000 || optInVFactor < 0.0 ||
-                optInVFactor > 1.0)
+            if (inReal == null || outReal == null || optInTimePeriod < 2 || optInTimePeriod > 100000 || optInVFactor < 0.0m ||
+                optInVFactor > 1.0m)
             {
                 return RetCode.BadParam;
             }
@@ -41,15 +41,15 @@ namespace TALib.NETCore.HighPerf
             outBegIdx = startIdx;
             int today = startIdx - lookbackTotal;
 
-            double k = 2.0 / (optInTimePeriod + 1.0);
-            double oneMinusK = 1.0 - k;
+            decimal k = 2.0m / (optInTimePeriod + 1.0m);
+            decimal oneMinusK = 1.0m - k;
 
-            double tempReal = inReal[today++];
+            decimal tempReal = inReal[today++];
             for (int i = optInTimePeriod - 1; i > 0; i--)
             {
                 tempReal += inReal[today++];
             }
-            double e1 = tempReal / optInTimePeriod;
+            decimal e1 = tempReal / optInTimePeriod;
 
             tempReal = e1;
             for (int i = optInTimePeriod - 1; i > 0; i--)
@@ -57,7 +57,7 @@ namespace TALib.NETCore.HighPerf
                 e1 = k * inReal[today++] + oneMinusK * e1;
                 tempReal += e1;
             }
-            double e2 = tempReal / optInTimePeriod;
+            decimal e2 = tempReal / optInTimePeriod;
 
             tempReal = e2;
             for (int i = optInTimePeriod - 1; i > 0; i--)
@@ -66,7 +66,7 @@ namespace TALib.NETCore.HighPerf
                 e2 = k * e1 + oneMinusK * e2;
                 tempReal += e2;
             }
-            double e3 = tempReal / optInTimePeriod;
+            decimal e3 = tempReal / optInTimePeriod;
 
             tempReal = e3;
             for (int i = optInTimePeriod - 1; i > 0; i--)
@@ -76,7 +76,7 @@ namespace TALib.NETCore.HighPerf
                 e3 = k * e2 + oneMinusK * e3;
                 tempReal += e3;
             }
-            double e4 = tempReal / optInTimePeriod;
+            decimal e4 = tempReal / optInTimePeriod;
 
             tempReal = e4;
             for (int i = optInTimePeriod - 1; i > 0; i--)
@@ -87,7 +87,7 @@ namespace TALib.NETCore.HighPerf
                 e4 = k * e3 + oneMinusK * e4;
                 tempReal += e4;
             }
-            double e5 = tempReal / optInTimePeriod;
+            decimal e5 = tempReal / optInTimePeriod;
 
             tempReal = e5;
             for (int i = optInTimePeriod - 1; i > 0; i--)
@@ -99,7 +99,7 @@ namespace TALib.NETCore.HighPerf
                 e5 = k * e4 + oneMinusK * e5;
                 tempReal += e5;
             }
-            double e6 = tempReal / optInTimePeriod;
+            decimal e6 = tempReal / optInTimePeriod;
 
             while (today <= startIdx)
             {
@@ -112,10 +112,10 @@ namespace TALib.NETCore.HighPerf
             }
 
             tempReal = optInVFactor * optInVFactor;
-            double c1 = -(tempReal * optInVFactor);
-            double c2 = 3.0 * (tempReal - c1);
-            double c3 = -6.0 * tempReal - 3.0 * (optInVFactor - c1);
-            double c4 = 1.0 + 3.0 * optInVFactor - c1 + 3.0 * tempReal;
+            decimal c1 = -(tempReal * optInVFactor);
+            decimal c2 = 3.0m * (tempReal - c1);
+            decimal c3 = -6.0m * tempReal - 3.0m * (optInVFactor - c1);
+            decimal c4 = 1.0m + 3.0m * optInVFactor - c1 + 3.0m * tempReal;
 
             int outIdx = default;
             outReal[outIdx++] = c1 * e6 + c2 * e5 + c3 * e4 + c4 * e3;

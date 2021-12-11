@@ -5,14 +5,14 @@ namespace TALib.NETCore.HighPerf
     public static partial class Lib
     {
         public static RetCode Acos(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize)
         {
             for (var i = 0; i < inputSize; i++)
             {
-                output[i] = Math.Acos(input[i]);
+                output[i] = (decimal)Math.Acos((double)input[i]);
             }
 
             outputSize = inputSize;

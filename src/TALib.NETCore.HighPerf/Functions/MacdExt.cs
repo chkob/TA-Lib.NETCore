@@ -6,8 +6,8 @@ namespace TALib.NETCore.HighPerf
     {
         // TODO: Find unit test data
         public static RetCode MacdExt(
-            ref Span<double> input,
-            ref Span<double> output,
+            ref Span<decimal> input,
+            ref Span<decimal> output,
             int inputSize,
             out int outputSize,
             MAType optInFastMAType = MAType.Sma,

@@ -8,15 +8,15 @@ namespace TALib.NETCore.HighPerf.Tests
         private const string AToZ = "atoz";
         private const string Untest = "untest";
 
-        private readonly Memory<double> _input;
-        private readonly Memory<double> _output;
-        private readonly Memory<double> _expectedOutput;
+        private readonly Memory<decimal> _input;
+        private readonly Memory<decimal> _output;
+        private readonly Memory<decimal> _expectedOutput;
 
         public IndividualFunctionTests()
         {
-            _input = new Memory<double>(new double[1024]);
-            _output = new Memory<double>(new double[1024]);
-            _expectedOutput = new Memory<double>(new double[1024]);
+            _input = new Memory<decimal>(new decimal[1024]);
+            _output = new Memory<decimal>(new decimal[1024]);
+            _expectedOutput = new Memory<decimal>(new decimal[1024]);
         }
 
         [Fact]
@@ -198,7 +198,7 @@ namespace TALib.NETCore.HighPerf.Tests
         //    FunctionNames.Bbands.FillTestData(Untest, ref input, ref expectedOutput, out var inputSize, out var parameters);
 
         //    Lib.Bbands(ref input, ref output, inputSize, out int outputSize,
-        //        (MAType) parameters[0], (int) parameters[1], double.Parse(parameters[2].ToString()), double.Parse(parameters[3].ToString()));
+        //        (MAType) parameters[0], (int) parameters[1], decimal.Parse(parameters[2].ToString()), decimal.Parse(parameters[3].ToString()));
         //    output.ShouldMatch(ref expectedOutput);
         //}
 

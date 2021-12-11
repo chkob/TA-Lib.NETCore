@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>TALib.NETCore.HighPerf</AssemblyName>
+    <RootNamespace>TALib.NETCore.HighPerf</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Functions\mod\**" />
+    <Compile Remove="Functions\orig\**" />
+    <EmbeddedResource Remove="Functions\mod\**" />
+    <EmbeddedResource Remove="Functions\orig\**" />
+    <None Remove="Functions\mod\**" />
+    <None Remove="Functions\orig\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="DecimalMath.cs" />
+  </ItemGroup>
+
+</Project>

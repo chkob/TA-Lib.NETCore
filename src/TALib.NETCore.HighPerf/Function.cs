@@ -89,11 +89,13 @@ namespace TALib.NETCore.HighPerf
 
         public RetCode Run(decimal[][] inputs, decimal[] options, decimal[][] outputs)
         {
-            var method = typeof(Lib)
+            var methods = typeof(Lib)
                 .GetMethods(BindingFlags.Static | BindingFlags.Public)
-                .Where(mi => !mi.Name.EndsWith(LookbackSuffix))
-                .SingleOrDefault(mi => MethodFinder(mi, decimalSpanType)) ??
-            throw new MissingMethodException(typeof(Lib).FullName, $"{Name}<{typeof(decimal).Name}>");
+                .Where(mi => !mi.Name.EndsWith(LookbackSuffix)).ToList();
+
+            var method = methods.SingleOrDefault(mi => MethodFinder(mi, decimalSpanType));
+            if (method == null) 
+            throw new MissingMethodException(typeof(Lib).FullName, $"{Name}<{typeof(decimal).Name.ToLowerInvariant()}>");
 
             var optInParameters = method.GetParameters().Where(pi => pi.Name.StartsWith(OptInPrefix)).ToList();
 

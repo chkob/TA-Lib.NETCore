@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TALib.NETCore.HighPerf", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TALib.NETCore.HighPerf.Tests", "tests\TALib.NETCore.HighPerf.Tests\TALib.NETCore.HighPerf.Tests.csproj", "{86AAD20D-3921-4577-AAD0-53281121A811}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TALib.NETCore.Library.Tests", "tests\TALib.NETCore.Library.Tests\TALib.NETCore.Library.Tests.csproj", "{2F2FABAC-CDDA-4E6E-BC52-824C2028821B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{86AAD20D-3921-4577-AAD0-53281121A811}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86AAD20D-3921-4577-AAD0-53281121A811}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86AAD20D-3921-4577-AAD0-53281121A811}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F2FABAC-CDDA-4E6E-BC52-824C2028821B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F2FABAC-CDDA-4E6E-BC52-824C2028821B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F2FABAC-CDDA-4E6E-BC52-824C2028821B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F2FABAC-CDDA-4E6E-BC52-824C2028821B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

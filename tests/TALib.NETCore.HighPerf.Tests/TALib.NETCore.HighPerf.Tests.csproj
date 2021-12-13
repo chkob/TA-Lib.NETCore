@@ -28,10 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\TALib.NETCore.HighPerf\TALib.NETCore.HighPerf.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="DataSets\extra.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -42,6 +42,8 @@ namespace TALib.NETCore.Library.Tests.Indicators.Func
             const int endIdx = 99;
             int outBegIdx, outNbElement;
             decimal[] real = fixture.CreateMany<decimal>(100).ToArray();
+            decimal average = real.Sum(x => x) / real.Count();
+            real = real.Select(x => (x - (average + 1m)) / (average + 1m)).ToArray();
             decimal[] outputReal = new decimal[100];
 
             // Act
